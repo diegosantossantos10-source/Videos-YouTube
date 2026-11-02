@@ -1,0 +1,241 @@
+{
+ "title": "Cap. 3 — Mi IA rentó un perro",
+ "set": {
+  "sky": "teal",
+  "dog": true,
+  "moon": true,
+  "seed": 3
+ },
+ "music": {
+  "bpm": 92,
+  "prog": 2,
+  "seed": 13
+ },
+ "screen": {
+  "title": "Mi vitrina",
+  "badge": "MASCOTAS",
+  "live": "● EN VIVO",
+  "tiles": [
+   {
+    "type": "brush",
+    "name": "Cepillo Pro",
+    "price": "$24.99",
+    "line": "40% comisión",
+    "pill": "Gana $10.00",
+    "hot": true
+   },
+   {
+    "type": "led",
+    "name": "Correa LED",
+    "price": "$14.99",
+    "line": "30% comisión",
+    "pill": "Gana $4.50"
+   },
+   {
+    "type": "termo",
+    "name": "Termo 1L",
+    "price": "$24.99",
+    "line": "5% comisión",
+    "pill": "Gana $1.25",
+    "pillColor": "#6b7280"
+   },
+   {
+    "type": "audif",
+    "name": "Audífonos",
+    "price": "$29.99",
+    "line": "5% comisión",
+    "pill": "Gana $1.50",
+    "pillColor": "#6b7280"
+   },
+   {
+    "type": "aro",
+    "name": "Aro de luz",
+    "price": "$17.99",
+    "line": "6% comisión",
+    "pill": "Gana $1.08",
+    "pillColor": "#6b7280"
+   },
+   {
+    "type": "soporte",
+    "name": "Tripié",
+    "price": "$9.99",
+    "line": "8% comisión",
+    "pill": "Gana $0.80",
+    "pillColor": "#6b7280"
+   }
+  ]
+ },
+ "beats": [
+  {
+   "who": "leo",
+   "shot": "wide",
+   "text": "Claude... ¿por qué hay un perro en la azotea?"
+  },
+  {
+   "who": "claude",
+   "shot": "claude",
+   "text": "Se llama Comisión. Es tu nuevo compañero."
+  },
+  {
+   "who": "leo",
+   "shot": "leoClose",
+   "text": "¡¿Rentaste un perro?!",
+   "mood": "shock",
+   "voice": {
+    "rate": "+12%",
+    "pitch": "+25Hz",
+    "volume": "+20%"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "Por tres días. Ahora vendemos cepillos para perro."
+  },
+  {
+   "who": "claude",
+   "shot": "dog",
+   "text": "Y míralo. Posa mejor que tú.",
+   "mood": "smug"
+  },
+  {
+   "who": "leo",
+   "shot": "leo",
+   "text": "¿Y mis productos de siempre?"
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "Pagaban 5%. Este paga 40%.",
+   "say": "Pagaban cinco por ciento. Este paga cuarenta."
+  },
+  {
+   "card": "compare",
+   "dur": 4.4,
+   "title": "Las mismas 900 ventas",
+   "sub": "Lo que ganas según la comisión",
+   "icon": "brush",
+   "bars": [
+    {
+     "label": "Tus productos de siempre · 5%",
+     "value": 450,
+     "color": "#9aa0a8"
+    },
+    {
+     "label": "Cepillo para perro · 40%",
+     "value": 3600,
+     "color": "#16a34a"
+    }
+   ],
+   "prefix": "$",
+   "foot": "Elige productos con comisión alta"
+  },
+  {
+   "who": "leo",
+   "shot": "leoXClose",
+   "text": "¡¿$3,600?!",
+   "say": "¡¿Tres mil seiscientos dólares?!",
+   "mood": "shock",
+   "voice": {
+    "rate": "+12%",
+    "pitch": "+25Hz",
+    "volume": "+20%"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claude",
+   "text": "Y Comisión solo salió en un video."
+  },
+  {
+   "who": "leo",
+   "shot": "leoClose",
+   "text": "¿Y por qué vendió tanto?"
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "Porque lo cepillas tú. Y lo haces fatal.",
+   "mood": "smug"
+  },
+  {
+   "who": "leo",
+   "shot": "leoClose",
+   "text": "Nunca había cepillado un perro.",
+   "mood": "serious"
+  },
+  {
+   "who": "claude",
+   "shot": "claude",
+   "text": "Por eso se ve tan auténtico.",
+   "mood": "happy"
+  },
+  {
+   "card": "chat",
+   "dur": 5.9,
+   "title": "Dueña de Comisión",
+   "sub": "en línea",
+   "initials": "DC",
+   "avatarColor": "#8b5cf6",
+   "msgs": [
+    {
+     "me": false,
+     "text": "¿Cómo se portó Comisión?"
+    },
+    {
+     "me": true,
+     "text": "Vendió 900 cepillos."
+    },
+    {
+     "me": false,
+     "text": "¿Le subo la renta?"
+    },
+    {
+     "me": true,
+     "text": "Ya lo contraté de planta."
+    }
+   ]
+  },
+  {
+   "who": "leo",
+   "shot": "leoFull",
+   "text": "¡¿Contrataste al perro?!",
+   "mood": "armsUp",
+   "voice": {
+    "rate": "+8%",
+    "pitch": "+15Hz",
+    "volume": "+15%"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "Gana más que tú. Y no pide vacaciones.",
+   "mood": "smug"
+  },
+  {
+   "card": "billboard",
+   "dur": 4.4,
+   "lines": [
+    "MI IA RENTÓ",
+    "UN PERRO"
+   ],
+   "big": "$3,600",
+   "bigSub": "CON 40% DE COMISIÓN",
+   "views": 3.2,
+   "foot": "900 cepillos vendidos con un solo video",
+   "stamp": "40% COMISIÓN",
+   "prop": "brush"
+  },
+  {
+   "who": "claude",
+   "shot": "cta",
+   "text": "Sigue la serie. Mañana: el video que Leo grabó dormido.",
+   "cta": {
+    "name": "DiegoMastery",
+    "sub": "Serie: Mi IA me hizo afiliado",
+    "tag": "CAP. 4 · MAÑANA"
+   }
+  }
+ ]
+}

@@ -1,0 +1,247 @@
+{
+ "title": "Cap. 6 — Las odié y se agotaron",
+ "set": {
+  "sky": "night",
+  "slippers": true,
+  "moon": true,
+  "seed": 6
+ },
+ "music": {
+  "bpm": 96,
+  "prog": 5,
+  "seed": 23
+ },
+ "screen": {
+  "title": "Mi vitrina",
+  "badge": "RESEÑAS",
+  "live": "● 4M VISTAS",
+  "tiles": [
+   {
+    "type": "slipper",
+    "name": "Pantuflas Dino",
+    "price": "$9.99",
+    "line": "30% comisión",
+    "pill": "AGOTADO",
+    "hot": true,
+    "pillColor": "#d0202b"
+   },
+   {
+    "type": "fryer",
+    "name": "Freidora",
+    "price": "$59.99",
+    "line": "10% comisión",
+    "pill": "Gana $6.00"
+   },
+   {
+    "type": "led",
+    "name": "Tira LED",
+    "price": "$12.99",
+    "line": "15% comisión",
+    "pill": "Gana $1.95"
+   },
+   {
+    "type": "termo",
+    "name": "Termo 1L",
+    "price": "$24.99",
+    "line": "12% comisión",
+    "pill": "Gana $3.00"
+   },
+   {
+    "type": "aro",
+    "name": "Aro de luz",
+    "price": "$17.99",
+    "line": "18% comisión",
+    "pill": "Gana $3.24"
+   },
+   {
+    "type": "audif",
+    "name": "Audífonos",
+    "price": "$29.99",
+    "line": "10% comisión",
+    "pill": "Gana $3.00"
+   }
+  ]
+ },
+ "beats": [
+  {
+   "who": "leo",
+   "shot": "wide",
+   "text": "Claude... ¿por qué vendimos 3,000 pantuflas de dinosaurio?",
+   "say": "Claude... ¿por qué vendimos tres mil pantuflas de dinosaurio?"
+  },
+  {
+   "who": "claude",
+   "shot": "claude",
+   "text": "Porque dijiste que eran horribles."
+  },
+  {
+   "who": "leo",
+   "shot": "leoClose",
+   "text": "¡Son horribles!",
+   "mood": "angry",
+   "voice": {
+    "rate": "+8%",
+    "pitch": "+10Hz",
+    "volume": "+20%"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "Eso dijiste en el video. Cuatro millones de vistas."
+  },
+  {
+   "card": "graph",
+   "dur": 5.0,
+   "title": "Ventas de las pantuflas",
+   "sub": "Antes y después de tu reseña",
+   "icon": "slipper",
+   "points": [
+    0.04,
+    0.05,
+    0.04,
+    0.06,
+    0.05,
+    0.2,
+    0.45,
+    0.62,
+    0.78,
+    0.88,
+    0.95,
+    0.99
+   ],
+   "mark": {
+    "at": 0.42,
+    "label": "Aquí dijiste \"horribles\""
+   },
+   "xlabels": [
+    "8 p.m.",
+    "10 p.m.",
+    "12 a.m.",
+    "2 a.m.",
+    "4 a.m."
+   ],
+   "big": {
+    "to": 3000,
+    "label": "pantuflas vendidas"
+   }
+  },
+  {
+   "who": "leo",
+   "shot": "leoXClose",
+   "text": "¡¿La gente compró porque las odié?!",
+   "mood": "shock",
+   "voice": {
+    "rate": "+12%",
+    "pitch": "+25Hz",
+    "volume": "+20%"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claude",
+   "text": "Querían ver si de verdad eran tan feas."
+  },
+  {
+   "who": "leo",
+   "shot": "leo",
+   "text": "¿Y la marca no se enojó?"
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "Te subió la comisión a 30%.",
+   "say": "Te subió la comisión al treinta por ciento.",
+   "mood": "happy"
+  },
+  {
+   "card": "notifs",
+   "dur": 5.0,
+   "title": "Nuevas ventas",
+   "sub": "Pantuflas Dino · 30% comisión",
+   "icon": "slipper",
+   "items": [
+    {
+     "icon": "slipper",
+     "title": "Nueva venta",
+     "body": "Pantuflas Dino · talla 27",
+     "time": "+$3.00"
+    },
+    {
+     "icon": "slipper",
+     "title": "Nueva venta",
+     "body": "Pantuflas Dino · talla 25",
+     "time": "+$3.00"
+    },
+    {
+     "icon": "slipper",
+     "title": "Nueva venta",
+     "body": "Pack familiar × 4",
+     "time": "+$12.00"
+    },
+    {
+     "icon": "slipper",
+     "title": "Nueva venta",
+     "body": "Pantuflas Dino · talla 30",
+     "time": "+$3.00"
+    },
+    {
+     "icon": "slipper",
+     "title": "Nueva venta",
+     "body": "“Para regalarle a mi suegra”",
+     "time": "+$3.00"
+    }
+   ],
+   "total": {
+    "label": "Comisiones de las pantuflas",
+    "to": 9000,
+    "prefix": "$",
+    "suffix": " USD"
+   }
+  },
+  {
+   "who": "leo",
+   "shot": "leoClose",
+   "text": "Pues yo jamás me las pondría.",
+   "mood": "serious"
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "Las traes puestas.",
+   "mood": "smug"
+  },
+  {
+   "who": "leo",
+   "shot": "leoFeet",
+   "text": "...Son muy cómodas.",
+   "say": "Son muy cómodas.",
+   "mood": "calm"
+  },
+  {
+   "card": "billboard",
+   "dur": 4.4,
+   "lines": [
+    "LAS ODIÉ",
+    "Y SE AGOTARON"
+   ],
+   "big": "3,000",
+   "bigSub": "PANTUFLAS VENDIDAS",
+   "views": 4.0,
+   "foot": "Reseña honesta: +380% en ventas",
+   "stamp": "AGOTADO",
+   "prop": "slipper",
+   "color": "#15803d"
+  },
+  {
+   "who": "claude",
+   "shot": "cta",
+   "text": "Sigue la serie y comenta el producto más feo que conozcas. Leo lo reseña mañana.",
+   "cta": {
+    "name": "DiegoMastery",
+    "sub": "Serie: Mi IA me hizo afiliado",
+    "tag": "CAP. 7 · TÚ ELIGES"
+   }
+  }
+ ]
+}

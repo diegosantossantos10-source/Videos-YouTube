@@ -1,0 +1,230 @@
+{
+ "title": "Cap. 4 — Me grabó dormido",
+ "set": {
+  "sky": "purple",
+  "sleepMask": true,
+  "noise": true,
+  "moon": false,
+  "seed": 4
+ },
+ "music": {
+  "bpm": 76,
+  "prog": 3,
+  "seed": 17
+ },
+ "screen": {
+  "title": "Mi vitrina",
+  "badge": "DESCANSO",
+  "live": "● EN VIVO 8 H",
+  "tiles": [
+   {
+    "type": "noise",
+    "name": "Ruido blanco",
+    "price": "$29.99",
+    "line": "15% comisión",
+    "pill": "Gana $4.50",
+    "hot": true
+   },
+   {
+    "type": "moon",
+    "name": "Lámpara Luna",
+    "price": "$19.99",
+    "line": "20% comisión",
+    "pill": "Gana $4.00"
+   },
+   {
+    "type": "audif",
+    "name": "Audífonos sueño",
+    "price": "$34.99",
+    "line": "12% comisión",
+    "pill": "Gana $4.20"
+   },
+   {
+    "type": "termo",
+    "name": "Termo de té",
+    "price": "$24.99",
+    "line": "10% comisión",
+    "pill": "Gana $2.50"
+   },
+   {
+    "type": "led",
+    "name": "Luz cálida",
+    "price": "$12.99",
+    "line": "15% comisión",
+    "pill": "Gana $1.95"
+   },
+   {
+    "type": "soporte",
+    "name": "Tripié noche",
+    "price": "$9.99",
+    "line": "25% comisión",
+    "pill": "Gana $2.50"
+   }
+  ]
+ },
+ "beats": [
+  {
+   "who": "leo",
+   "shot": "wide",
+   "text": "Claude... ¿por qué mi mamá dice que soy famoso?"
+  },
+  {
+   "who": "claude",
+   "shot": "claude",
+   "text": "Por el video de anoche."
+  },
+  {
+   "who": "leo",
+   "shot": "leoClose",
+   "text": "Anoche me dormí temprano."
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "Exacto. Con la máquina de ruido blanco."
+  },
+  {
+   "who": "leo",
+   "shot": "leoXClose",
+   "text": "¡¿Me grabaste dormido?!",
+   "mood": "shock",
+   "voice": {
+    "rate": "+12%",
+    "pitch": "+25Hz",
+    "volume": "+20%"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claude",
+   "text": "Ocho horas. Roncaste en 4K.",
+   "say": "Ocho horas. Roncaste en cuatro K."
+  },
+  {
+   "card": "stats",
+   "dur": 5.4,
+   "title": "Tu video dormido en 60 seg",
+   "sub": "1 video · 8 horas · 0 cortes",
+   "icon": "noise",
+   "count": {
+    "to": 3100000,
+    "label": "vistas",
+    "fmt": "short"
+   },
+   "row": {
+    "icon": "noise",
+    "text": "Ruido blanco · $29.99",
+    "right": "15% comisión"
+   },
+   "pill": "Video viral ✓",
+   "money": {
+    "label": "Comisiones de ayer",
+    "to": 6300,
+    "prefix": "$",
+    "suffix": " USD",
+    "foot": "1,400 máquinas vendidas"
+   }
+  },
+  {
+   "who": "leo",
+   "shot": "leo",
+   "text": "¡Eso es privado!",
+   "mood": "angry",
+   "voice": {
+    "rate": "+8%",
+    "pitch": "+10Hz",
+    "volume": "+20%"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "Ya no. Lo vieron tres millones."
+  },
+  {
+   "who": "leo",
+   "shot": "leoClose",
+   "text": "¿Y por qué compraron la máquina?"
+  },
+  {
+   "who": "claude",
+   "shot": "claude",
+   "text": "Porque ni la alarma de incendios te despertó."
+  },
+  {
+   "who": "leo",
+   "shot": "leoClose",
+   "text": "...Sí duermo muy bien.",
+   "say": "Sí duermo muy bien.",
+   "mood": "calm"
+  },
+  {
+   "who": "claude",
+   "shot": "claude",
+   "text": "La marca piensa lo mismo. Quiere otro.",
+   "mood": "happy"
+  },
+  {
+   "card": "message",
+   "dur": 5.4,
+   "to": "Marca Nube",
+   "subject": "Propuesta",
+   "body": "“Live de 8 horas durmiendo.”",
+   "sent": "Recibido a las 7:05 a.m.",
+   "pill": "Aceptado ✓",
+   "reply": {
+    "from": "Marca Nube · ahora",
+    "text": "Pagamos $2,000 fijos."
+   }
+  },
+  {
+   "who": "leo",
+   "shot": "leoXClose",
+   "text": "¡¿Un live dormido?!",
+   "say": "¡¿Un láiv dormido?!",
+   "mood": "shock",
+   "voice": {
+    "rate": "+12%",
+    "pitch": "+25Hz",
+    "volume": "+20%"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "Es el único trabajo donde eres el mejor.",
+   "mood": "smug"
+  },
+  {
+   "card": "billboard",
+   "dur": 4.4,
+   "lines": [
+    "ME GRABÓ",
+    "DORMIDO"
+   ],
+   "big": "$6,300",
+   "bigSub": "EN UNA NOCHE",
+   "views": 3.1,
+   "foot": "1,400 máquinas vendidas mientras roncaba",
+   "stamp": "VIRAL",
+   "prop": "noise",
+   "faces": [
+    {
+     "eyes": "closed",
+     "mouth": "flat"
+    }
+   ],
+   "color": "#5b3fa0"
+  },
+  {
+   "who": "claude",
+   "shot": "cta",
+   "text": "Sigue la serie. Mañana: el primo que le copió todo a Leo.",
+   "cta": {
+    "name": "DiegoMastery",
+    "sub": "Serie: Mi IA me hizo afiliado",
+    "tag": "CAP. 5 · MAÑANA"
+   }
+  }
+ ]
+}

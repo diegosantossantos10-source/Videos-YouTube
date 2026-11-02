@@ -1,5 +1,5 @@
 // Render determinista de frames con Chromium headless (WebGL por SwiftShader).
-// Uso: node tools/render.js [--workers 3] [--frames 0:2063] [--stills 10,200,...] [--out build/frames]
+// Uso: node tools/render.js --ep episodes/cap02-60-cajas [--workers 1] [--frames 0:1500] [--stills 10,200,...] [--out <ep>/build/frames]
 const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
@@ -7,12 +7,13 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
 const PORT = +arg('port', 8777);
-const OUT = path.resolve(ROOT, arg('out', 'build/frames'));
-const WORKERS = +arg('workers', 3);
+const EP = arg('ep', 'episodes/cap01-afiliado').replace(/\/$/, '');
+const OUT = path.resolve(ROOT, arg('out', `${EP}/build/frames`));
+const WORKERS = +arg('workers', 2);
 fs.mkdirSync(OUT, { recursive: true });
 
 (async () => {
-  const tl = JSON.parse(fs.readFileSync(path.join(ROOT, 'build/timeline.json')));
+  const tl = JSON.parse(fs.readFileSync(path.join(ROOT, EP, 'build/timeline.json')));
   const total = Math.round(tl.duration * tl.fps);
   let frames;
   if (arg('stills')) frames = arg('stills').split(',').map(Number);
@@ -27,7 +28,7 @@ fs.mkdirSync(OUT, { recursive: true });
     const page = await browser.newPage({ viewport: { width: 400, height: 700 } });
     page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') console.log(`[w${k}]`, m.text()); });
     page.on('pageerror', e => console.log(`[w${k}] pageerror`, e.message));
-    await page.goto(`http://localhost:${PORT}/web/index.html`);
+    await page.goto(`http://localhost:${PORT}/web/index.html?ep=${encodeURIComponent(EP)}`);
     await page.waitForFunction('window.READY === true', null, { timeout: 120000 });
     for (const f of list) {
       const url = await page.evaluate(n => window.frame(n), f);
