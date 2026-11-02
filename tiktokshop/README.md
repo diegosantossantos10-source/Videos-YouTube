@@ -1,8 +1,10 @@
-# Claude me abrió una TikTok Shop — sketch 3D vertical
+# Claude me hizo afiliado de TikTok Shop — sketch 3D vertical
 
-Vídeo vertical 1080x1920 a 30 fps (~69 s) al estilo del sketch "Claude… ¿por qué YouTube me va a pagar $5,000?":
+Vídeo vertical 1080x1920 a 30 fps (~71 s) al estilo del sketch "Claude… ¿por qué YouTube me va a pagar $5,000?":
 Leo, con su gorro rojo, y el cubo naranja de Claude en una azotea de noche, con subtítulos arriba y tarjetas de datos animadas.
-Aquí el tema es una TikTok Shop: Claude vendió las 500 lámparas de luna del garaje, pidió 5,000 más dormido y rentó una bodega.
+Aquí el tema es el programa de afiliados de TikTok Shop: Leo no tiene productos; Claude lo hizo afiliado, subió 3 videos
+recomendando productos de otras marcas (2,000 ventas con su link, $8,000 en comisiones), pidió muestras gratis a 40 marcas
+mientras Leo hablaba dormido y rentó una bodega para las cajas.
 
 ## Estructura
 
@@ -12,7 +14,7 @@ Aquí el tema es una TikTok Shop: Claude vendió las 500 lámparas de luna del g
 | `tools/build.py` | Voces neuronales (edge-tts), `build/timeline.json`, efectos y música sintetizados, mezcla `build/mix.wav` |
 | `web/scene.js` | Escena three.js (personajes low-poly, ciudad desenfocada, pantalla LED, cajas) + tarjetas y subtítulos en 2D |
 | `tools/render.js` | Renderiza los frames en Chromium headless (Playwright) en paralelo |
-| `tools/mux.sh` | Une los frames y el audio, y normaliza a -14 LUFS → `out/claude_tiktokshop.mp4` |
+| `tools/mux.sh` | Une los frames y el audio, y normaliza a -14 LUFS → `out/claude_tiktokshop_afiliados.mp4` |
 
 ## Regenerar
 

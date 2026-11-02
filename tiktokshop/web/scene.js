@@ -333,24 +333,60 @@ function drawLeoFace2D(g, cx, cy, r) {
   g.restore();
 }
 
-// pantalla: tienda / miniatura
+// pantalla: vitrina de afiliado / miniatura
+function drawProduct(g, type, x, y, r) {
+  g.save(); g.lineCap = 'round';
+  if (type === 'moon') drawMoonLamp(g, x, y - r * .1, r * .78);
+  else if (type === 'led') {
+    const cols = ['#ff3b5c', '#ff9f1c', '#ffe14d', '#3ddc84', '#2ec4ff', '#9b5cff'];
+    g.lineWidth = r * .16; g.strokeStyle = '#2b3147'; g.beginPath();
+    for (let k = 0; k <= 30; k++) { const px = x - r + k * r / 15, py = y + Math.sin(k / 30 * Math.PI * 2) * r * .35; k ? g.lineTo(px, py) : g.moveTo(px, py); } g.stroke();
+    for (let k = 0; k < 12; k++) { const px = x - r + k * r * 2 / 11, py = y + Math.sin(k / 11 * Math.PI * 2) * r * .35; g.fillStyle = cols[k % 6]; g.shadowColor = cols[k % 6]; g.shadowBlur = r * .35; g.beginPath(); g.arc(px, py, r * .1, 0, Math.PI * 2); g.fill(); }
+  } else if (type === 'termo') {
+    g.fillStyle = '#5ec8e8'; rr(g, x - r * .32, y - r * .62, r * .64, r * 1.45, r * .16); g.fill();
+    g.fillStyle = '#2b3147'; rr(g, x - r * .26, y - r * .86, r * .52, r * .3, r * .08); g.fill();
+    g.fillStyle = 'rgba(255,255,255,.35)'; rr(g, x - r * .2, y - r * .45, r * .1, r * 1.0, r * .05); g.fill();
+  } else if (type === 'audif') {
+    g.strokeStyle = '#e8ebf2'; g.lineWidth = r * .16; g.beginPath(); g.arc(x, y + r * .05, r * .62, Math.PI * 1.05, Math.PI * 1.95); g.stroke();
+    g.fillStyle = '#ff8a4c'; rr(g, x - r * .78, y - r * .05, r * .32, r * .58, r * .12); g.fill(); rr(g, x + r * .46, y - r * .05, r * .32, r * .58, r * .12); g.fill();
+  } else if (type === 'aro') {
+    g.strokeStyle = '#fff6e0'; g.shadowColor = 'rgba(255,240,200,.9)'; g.shadowBlur = r * .5; g.lineWidth = r * .2;
+    g.beginPath(); g.arc(x, y - r * .2, r * .58, 0, Math.PI * 2); g.stroke(); g.shadowBlur = 0;
+    g.strokeStyle = '#59607a'; g.lineWidth = r * .07; g.beginPath(); g.moveTo(x, y + r * .38); g.lineTo(x, y + r * .95); g.moveTo(x - r * .35, y + r * .95); g.lineTo(x + r * .35, y + r * .95); g.stroke();
+  } else if (type === 'soporte') {
+    g.strokeStyle = '#59607a'; g.lineWidth = r * .07; g.beginPath(); g.moveTo(x, y + r * .35); g.lineTo(x - r * .45, y + r * .95); g.moveTo(x, y + r * .35); g.lineTo(x + r * .45, y + r * .95); g.moveTo(x, y + r * .35); g.lineTo(x, y + r * .95); g.stroke();
+    g.fillStyle = '#20263a'; rr(g, x - r * .3, y - r * .75, r * .6, r * 1.1, r * .1); g.fill();
+    const gr = g.createLinearGradient(0, y - r * .7, 0, y + r * .3); gr.addColorStop(0, '#ff3b5c'); gr.addColorStop(1, '#2ec4ff');
+    g.fillStyle = gr; rr(g, x - r * .25, y - r * .68, r * .5, r * .96, r * .06); g.fill();
+  }
+  g.restore();
+}
+const SHOWCASE = [
+  ['moon', 'Lámpara Luna', '$19.99', '20%', '$4.00'], ['led', 'Tira LED', '$12.99', '15%', '$1.95'], ['termo', 'Termo 1L', '$24.99', '12%', '$3.00'],
+  ['audif', 'Audífonos', '$29.99', '10%', '$3.00'], ['aro', 'Aro de luz', '$17.99', '18%', '$3.24'], ['soporte', 'Tripié', '$9.99', '25%', '$2.50'],
+];
 function drawStore() {
   const g = scrG; g.fillStyle = '#0e1322'; g.fillRect(0, 0, SCR_W, SCR_H);
   g.fillStyle = '#151b2e'; g.fillRect(0, 0, SCR_W, 130);
   g.fillStyle = '#e4703a'; g.beginPath(); g.arc(85, 65, 40, 0, Math.PI * 2); g.fill(); drawBag(g, 85, 64, 40);
-  g.fillStyle = '#fff'; g.font = '800 54px Inter'; g.textBaseline = 'middle'; g.fillText('Mi Tienda', 145, 66);
+  g.fillStyle = '#fff'; g.font = '800 54px Inter'; g.textBaseline = 'middle'; g.fillText('Mi vitrina', 145, 66);
+  g.font = '800 54px Inter'; const tw0 = g.measureText('Mi vitrina').width;
+  g.fillStyle = '#2b3550'; rr(g, 165 + tw0, 40, 210, 52, 26); g.fill();
+  g.fillStyle = '#9fb4ff'; g.font = '700 28px Inter'; g.fillText('AFILIADO', 196 + tw0, 67);
   g.fillStyle = '#ff3b5c'; rr(g, SCR_W - 330, 38, 290, 56, 28); g.fill();
   g.fillStyle = '#fff'; g.font = '700 32px Inter'; g.textAlign = 'center'; g.fillText('● EN VIVO 3:00', SCR_W - 185, 67); g.textAlign = 'left';
   const cols = 3, rows = 2, pad = 40, tw = (SCR_W - pad * (cols + 1)) / cols, th = (SCR_H - 130 - pad * (rows + 1)) / rows;
-  for (let i = 0; i < cols; i++) for (let j = 0; j < rows; j++) {
+  SHOWCASE.forEach(([type, name, price, pct, earn], k) => {
+    const i = k % cols, j = Math.floor(k / cols);
     const x = pad + i * (tw + pad), y = 130 + pad + j * (th + pad);
     g.fillStyle = '#1c2438'; rr(g, x, y, tw, th, 26); g.fill();
-    drawMoonLamp(g, x + tw * .3, y + th * .44, th * .24);
-    g.fillStyle = '#e8ebf2'; g.font = '700 36px Inter'; g.fillText('Lámpara Luna', x + tw * .55, y + th * .3);
-    g.fillStyle = '#ff8a4c'; g.font = '800 54px Inter'; g.fillText('$19.99', x + tw * .55, y + th * .52);
-    g.fillStyle = '#16a34a'; rr(g, x + tw * .55, y + th * .66, 200, 50, 25); g.fill();
-    g.fillStyle = '#fff'; g.font = '700 28px Inter'; g.fillText('AGOTADO', x + tw * .55 + 32, y + th * .66 + 26);
-  }
+    drawProduct(g, type, x + tw * .25, y + th * .45, th * .27);
+    g.fillStyle = '#e8ebf2'; g.font = '700 34px Inter'; g.fillText(name, x + tw * .5, y + th * .2);
+    g.fillStyle = '#c3c8d4'; g.font = '600 32px Inter'; g.fillText(price, x + tw * .5, y + th * .37);
+    g.fillStyle = '#ff8a4c'; g.font = '800 40px Inter'; g.fillText(pct + ' comisión', x + tw * .5, y + th * .56);
+    g.fillStyle = '#16a34a'; rr(g, x + tw * .5, y + th * .7, 196, 50, 25); g.fill();
+    g.fillStyle = '#fff'; g.font = '700 27px Inter'; g.fillText('Gana ' + earn, x + tw * .5 + 22, y + th * .7 + 26);
+  });
   scrTex.needsUpdate = true;
 }
 function fmtNum(n) { return Math.round(n).toLocaleString('en-US'); }
@@ -358,18 +394,19 @@ function drawThumb(lt, ev) {
   const g = scrG; g.fillStyle = '#f1f2f4'; g.fillRect(0, 0, SCR_W, SCR_H);
   g.fillStyle = '#c8202b'; rr(g, 60, 60, SCR_W - 120, 600, 34); g.fill();
   g.fillStyle = '#fff'; g.font = '900 112px Inter'; g.textBaseline = 'alphabetic';
-  g.fillText('MI IA VENDIÓ', 120, 230); g.fillText('500 LÁMPARAS', 120, 360);
-  g.fillStyle = '#ffd23f'; g.font = '900 150px Inter'; g.fillText('$8,000', 120, 540);
+  g.fillText('MI IA ME HIZO', 120, 230); g.fillText('AFILIADO', 120, 360);
+  g.fillStyle = '#ffd23f'; g.font = '900 140px Inter'; g.fillText('$8,000', 120, 515);
+  g.font = '900 56px Inter'; g.fillText('EN COMISIONES', 126, 600);
   drawMoonLamp(g, 1130, 470, 95, 1.3);
   drawLeoFace2D(g, 1330, 330, 190);
   const v = 2.4e6 * easeOut((lt - ev.views[0]) / (ev.views[1] - ev.views[0]));
   g.fillStyle = '#d0202b'; g.font = '800 92px Inter'; g.fillText((v / 1e6).toFixed(1) + 'M vistas', 90, 800);
-  g.fillStyle = '#7b8089'; g.font = '500 54px Inter'; g.fillText('312 lámparas vendidas con este video', 90, 890);
+  g.fillStyle = '#7b8089'; g.font = '500 54px Inter'; g.fillText('812 ventas con tu link en este video', 90, 890);
   if (lt > ev.stamp) {
     const k = backOut((lt - ev.stamp) / .35), s = lerp(2.2, 1, k);
     g.save(); g.translate(1290, 820); g.rotate(-.12); g.scale(s, s); g.globalAlpha = clamp((lt - ev.stamp) / .12);
-    g.strokeStyle = '#16a34a'; g.lineWidth = 12; rr(g, -230, -70, 460, 140, 20); g.stroke();
-    g.fillStyle = '#16a34a'; g.font = '900 72px Inter'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('TOP VENTAS', 0, 4);
+    g.strokeStyle = '#16a34a'; g.lineWidth = 12; rr(g, -270, -70, 540, 140, 20); g.stroke();
+    g.fillStyle = '#16a34a'; g.font = '900 64px Inter'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('TOP AFILIADO', 0, 4);
     g.restore(); g.textAlign = 'left'; g.textBaseline = 'alphabetic';
   }
   scrTex.needsUpdate = true;
@@ -511,26 +548,28 @@ function statsCard(lt, ev) {
     const P = 60;
     ctx.fillStyle = '#e4703a'; ctx.beginPath(); ctx.arc(P + 38, 92, 38, 0, Math.PI * 2); ctx.fill(); drawBag(ctx, P + 38, 92, 36);
     ctx.textBaseline = 'middle';
-    ctx.fillStyle = '#16181d'; ctx.font = '800 46px Inter'; ctx.fillText('Tu tienda en 60 segundos', P + 98, 76);
-    ctx.fillStyle = '#7a7f87'; ctx.font = '500 30px Inter'; ctx.fillText('3 videos · 1 live · 4 días', P + 98, 122);
-    const c = 500 * easeOut((lt - ev.count[0]) / (ev.count[1] - ev.count[0]));
+    ctx.fillStyle = '#16181d'; ctx.font = '800 46px Inter'; ctx.fillText('Tus comisiones en 60 segundos', P + 98, 76);
+    ctx.fillStyle = '#7a7f87'; ctx.font = '500 30px Inter'; ctx.fillText('3 videos · 1 live · 4 días · 0 productos propios', P + 98, 122);
+    const c = 2000 * easeOut((lt - ev.count[0]) / (ev.count[1] - ev.count[0]));
     ctx.textBaseline = 'alphabetic';
     ctx.fillStyle = '#111317'; ctx.font = '900 150px Inter'; ctx.fillText(fmtNum(c), P - 4, 340);
-    ctx.fillStyle = '#6b7078'; ctx.font = '500 34px Inter'; ctx.fillText('lámparas vendidas', P, 392);
-    const bw = w - P * 2, p = c / 500;
-    ctx.fillStyle = '#dde0e5'; rr(ctx, P, 428, bw, 24, 12); ctx.fill();
-    if (p > 0) { ctx.fillStyle = p >= .999 ? '#16a34a' : '#e4703a'; rr(ctx, P, 428, Math.max(24, bw * p), 24, 12); ctx.fill(); }
-    ctx.fillStyle = '#8a8f98'; ctx.font = '500 28px Inter'; ctx.textAlign = 'right'; ctx.fillText(`Stock: ${fmtNum(500 - c)}`, w - P, 500); ctx.textAlign = 'left';
-    pill(P, 470, 'Agotado ✓', '#16a34a', (lt - ev.badge) / .3);
+    ctx.fillStyle = '#6b7078'; ctx.font = '500 34px Inter'; ctx.fillText('ventas con tu link', P, 392);
+    // producto top
+    ctx.fillStyle = '#e3e6ea'; rr(ctx, P, 420, w - P * 2, 70, 18); ctx.fill();
+    drawMoonLamp(ctx, P + 42, 450, 19, .6);
+    ctx.textBaseline = 'middle'; ctx.fillStyle = '#2a2e35'; ctx.font = '600 30px Inter'; ctx.fillText('Top: Lámpara Luna · $19.99', P + 86, 456);
+    ctx.fillStyle = '#e4703a'; ctx.font = '800 30px Inter'; ctx.textAlign = 'right'; ctx.fillText('20% comisión', w - P - 24, 456); ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
+    pill(P, 506, 'Afiliado verificado ✓', '#16a34a', (lt - ev.badge) / .3);
     const mk = easeOut((lt - ev.money[0]) / .35);
     if (mk > 0) {
       ctx.save(); ctx.globalAlpha *= mk; ctx.translate(0, (1 - mk) * 30);
-      ctx.fillStyle = '#ddf3e4'; rr(ctx, 36, 572, w - 72, 390, 26); ctx.fill();
-      ctx.fillStyle = '#4b5563'; ctx.font = '500 32px Inter'; ctx.fillText('Ganancia estimada del mes', 76, 640);
+      ctx.fillStyle = '#ddf3e4'; rr(ctx, 36, 600, w - 72, 362, 26); ctx.fill();
+      ctx.fillStyle = '#4b5563'; ctx.font = '500 32px Inter'; ctx.fillText('Comisiones del mes', 76, 666);
       const m = 8000 * easeOut((lt - ev.money[0]) / (ev.money[1] - ev.money[0]));
-      ctx.fillStyle = '#15a04a'; ctx.font = '900 132px Inter'; ctx.fillText('$' + fmtNum(m) + ' USD', 68, 790);
+      ctx.fillStyle = '#15a04a'; ctx.font = '900 132px Inter'; ctx.fillText('$' + fmtNum(m) + ' USD', 68, 810);
       const dk = clamp((lt - ev.deposit) / .25);
-      ctx.globalAlpha *= dk; ctx.fillStyle = '#1f2937'; ctx.font = '700 38px Inter'; ctx.fillText('Depósito: viernes', 76, 880);
+      ctx.globalAlpha *= dk; ctx.fillStyle = '#1f2937'; ctx.font = '700 38px Inter'; ctx.fillText('Pago: viernes', 76, 895);
       ctx.restore();
     }
   });
@@ -540,17 +579,17 @@ function orderCard(lt, ev) {
   cardFrame(lt, x, y, w, h, () => {
     const P = 60; ctx.textBaseline = 'middle';
     ctx.fillStyle = '#8a8f98'; ctx.font = '500 34px Inter'; ctx.fillText('Para:', P, 82); ctx.fillText('Asunto:', P, 140);
-    ctx.fillStyle = '#16181d'; ctx.font = '700 34px Inter'; ctx.fillText('Proveedor', P + 150, 82); ctx.fillText('Pedido urgente', P + 150, 140);
+    ctx.fillStyle = '#16181d'; ctx.font = '700 34px Inter'; ctx.fillText('40 marcas', P + 150, 82); ctx.fillText('Muestras gratis', P + 150, 140);
     drawClaudeIcon(ctx, w - P - 64, 56, 64);
     ctx.fillStyle = '#d9dce1'; ctx.fillRect(P, 186, w - P * 2, 3);
-    ctx.fillStyle = '#111317'; ctx.font = '800 62px Inter'; ctx.fillText('5,000 lámparas de luna.', P, 268);
+    ctx.fillStyle = '#111317'; ctx.font = '800 62px Inter'; ctx.fillText('“Mándenme todo.”', P, 268);
     const sent = 'Enviado a las 3:12 a.m.', n = Math.floor(sent.length * clamp((lt - ev.time) / .45));
     ctx.fillStyle = '#8a8f98'; ctx.font = '500 32px Inter'; ctx.fillText(sent.slice(0, n), P, 330);
     pill(P, 378, 'Enviado ✓', '#16a34a', (lt - ev.sent) / .3);
     if (rk > 0) {
       ctx.save(); ctx.globalAlpha *= rk; ctx.translate(0, (1 - rk) * 50);
       ctx.fillStyle = '#e1e6f0'; rr(ctx, 36, 480, w - 72, 240, 24); ctx.fill();
-      ctx.fillStyle = '#6b7280'; ctx.font = '500 32px Inter'; ctx.fillText('Proveedor · ahora', 76, 540);
+      ctx.fillStyle = '#6b7280'; ctx.font = '500 32px Inter'; ctx.fillText('Marcas · ahora', 76, 540);
       ctx.fillStyle = '#111317'; ctx.font = '800 72px Inter'; ctx.fillText('Llegan el lunes.', 76, 630);
       ctx.restore();
     }
