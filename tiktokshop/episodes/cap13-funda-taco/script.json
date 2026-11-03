@@ -1,0 +1,244 @@
+{
+ "style": "v2",
+ "voices": {
+  "leo": {
+   "voice": "es-MX-JorgeNeural",
+   "rate": "+16%",
+   "pitch": "+0Hz"
+  },
+  "claude": {
+   "voice": "es-US-AlonsoNeural",
+   "rate": "+12%",
+   "pitch": "+0Hz"
+  }
+ },
+ "pace": {
+  "first": 0.04,
+  "pre": 0.06,
+  "shockPre": 0.03,
+  "post": 0.14,
+  "shockPost": 0.26,
+  "cardGap": 0.06,
+  "tempo": 0.72
+ },
+ "title": "Cap. 13 — Nadie vendía esto",
+ "hook": {
+  "lines": [
+   "NADIE VENDÍA ESTO",
+   "Y YO VENDÍ 2,300"
+  ],
+  "untilBeat": 3
+ },
+ "hl": [
+  "TACO",
+  "NADIE",
+  "AMO'.",
+  "POZOLE.",
+  "HAMBRE!"
+ ],
+ "set": {
+  "sky": "teal",
+  "moon": true,
+  "seed": 13,
+  "exposure": 1.4
+ },
+ "music": {
+  "bpm": 96,
+  "prog": 0,
+  "seed": 53
+ },
+ "screen": {
+  "title": "Mi vitrina",
+  "badge": "SIN COMPETENCIA",
+  "live": "",
+  "tiles": [
+   {
+    "type": "taco",
+    "name": "Funda Taco",
+    "price": "$9.99",
+    "line": "15% comisión",
+    "pill": "3 vendedores",
+    "hot": true,
+    "pillColor": "#e4703a"
+   },
+   {
+    "type": "moon",
+    "name": "Lámpara Luna",
+    "price": "$19.99",
+    "line": "20% comisión",
+    "pill": "Gana $4.00"
+   },
+   {
+    "type": "led",
+    "name": "Tira LED",
+    "price": "$12.99",
+    "line": "15% comisión",
+    "pill": "Gana $1.95"
+   },
+   {
+    "type": "termo",
+    "name": "Termo 1L",
+    "price": "$24.99",
+    "line": "12% comisión",
+    "pill": "Gana $3.00"
+   },
+   {
+    "type": "audif",
+    "name": "Audífonos",
+    "price": "$29.99",
+    "line": "10% comisión",
+    "pill": "Gana $3.00"
+   },
+   {
+    "type": "aro",
+    "name": "Aro de luz",
+    "price": "$17.99",
+    "line": "18% comisión",
+    "pill": "Gana $3.24"
+   }
+  ]
+ },
+ "beats": [
+  {
+   "who": "leo",
+   "shot": "leoXClose",
+   "text": "¡¿Una funda con forma de taco?!",
+   "mood": "shock",
+   "voice": {
+    "rate": "+20%",
+    "pitch": "+25Hz",
+    "volume": "+25%"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "Nadie la vende. Y la gente la busca."
+  },
+  {
+   "card": "compare",
+   "dur": 3.2,
+   "title": "La funda de taco",
+   "sub": "Búsquedas vs. afiliados que la venden",
+   "icon": "taco",
+   "bars": [
+    {
+     "label": "Búsquedas este mes",
+     "value": 48000,
+     "color": "#e4703a"
+    },
+    {
+     "label": "Afiliados que la venden",
+     "value": 3,
+     "color": "#9aa0a8"
+    }
+   ],
+   "foot": "Busca productos con poca competencia"
+  },
+  {
+   "who": "leo",
+   "shot": "leoClose",
+   "text": "¿Y por qué nadie la vende?"
+  },
+  {
+   "who": "claude",
+   "shot": "claude",
+   "text": "Porque nadie quiere hablarle a un taco.",
+   "mood": "smug"
+  },
+  {
+   "who": "leo",
+   "shot": "leoClose",
+   "text": "¿Y yo sí?",
+   "mood": "serious"
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "Ya grabaste. Le dijiste 'te amo'.",
+   "mood": "smug"
+  },
+  {
+   "who": "leo",
+   "shot": "leoXClose",
+   "text": "¡Tenía hambre!",
+   "mood": "shock",
+   "voice": {
+    "rate": "+20%",
+    "pitch": "+25Hz",
+    "volume": "+25%"
+   }
+  },
+  {
+   "card": "stats",
+   "dur": 3.9,
+   "title": "Tu funda de taco",
+   "sub": "1 video · 0 competencia",
+   "icon": "taco",
+   "count": {
+    "to": 2300,
+    "label": "fundas vendidas"
+   },
+   "row": {
+    "icon": "taco",
+    "text": "Funda Taco · $9.99",
+    "right": "15% comisión"
+   },
+   "pill": "Sin competencia ✓",
+   "money": {
+    "label": "Comisiones",
+    "to": 3450,
+    "prefix": "$",
+    "suffix": " USD",
+    "foot": "Y nadie más la vende"
+   }
+  },
+  {
+   "who": "leo",
+   "shot": "leo",
+   "text": "¿Y ahora qué sigue?"
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "La funda de pozole.",
+   "mood": "happy"
+  },
+  {
+   "who": "leo",
+   "shot": "leoFull",
+   "text": "¡Esa sí la compro!",
+   "mood": "armsUp",
+   "voice": {
+    "rate": "+16%",
+    "pitch": "+15Hz",
+    "volume": "+20%"
+   }
+  },
+  {
+   "card": "billboard",
+   "dur": 3.1,
+   "lines": [
+    "NADIE VENDÍA",
+    "ESTA FUNDA"
+   ],
+   "big": "2,300",
+   "bigSub": "FUNDAS DE TACO",
+   "views": 3.0,
+   "foot": "48,000 búsquedas, 3 vendedores",
+   "stamp": "SIN COMPETENCIA",
+   "prop": "taco",
+   "color": "#c2410c"
+  },
+  {
+   "who": "claude",
+   "shot": "cta",
+   "text": "Sigue la serie. Mañana: Claude se va de vacaciones.",
+   "cta": {
+    "name": "DiegoMastery",
+    "sub": "Serie: Mi IA me hizo afiliado",
+    "tag": "CAP. 14 · MAÑANA"
+   }
+  }
+ ]
+}

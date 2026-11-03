@@ -1,0 +1,280 @@
+{
+ "style": "v2",
+ "voices": {
+  "leo": {
+   "voice": "es-MX-JorgeNeural",
+   "rate": "+16%",
+   "pitch": "+0Hz"
+  },
+  "claude": {
+   "voice": "es-US-AlonsoNeural",
+   "rate": "+12%",
+   "pitch": "+0Hz"
+  }
+ },
+ "pace": {
+  "first": 0.04,
+  "pre": 0.06,
+  "shockPre": 0.03,
+  "post": 0.14,
+  "shockPost": 0.26,
+  "cardGap": 0.06,
+  "tempo": 0.72
+ },
+ "title": "Cap. 8 — Mi primer live",
+ "hook": {
+  "lines": [
+   "HICE MI PRIMER LIVE",
+   "Y ENTRARON 3 PERSONAS"
+  ],
+  "untilBeat": 3
+ },
+ "hl": [
+  "MAMÁ",
+  "OFERTA",
+  "FIJASTE",
+  "FIJADO",
+  "LIVE",
+  "CELULARES"
+ ],
+ "set": {
+  "sky": "purple",
+  "ringLight": true,
+  "moon": true,
+  "seed": 8,
+  "exposure": 1.4
+ },
+ "music": {
+  "bpm": 100,
+  "prog": 2,
+  "seed": 31
+ },
+ "screen": {
+  "title": "En vivo",
+  "badge": "LIVE",
+  "live": "● 2,400",
+  "tiles": [
+   {
+    "type": "aro",
+    "name": "Aro de luz",
+    "price": "$17.99",
+    "line": "18% comisión",
+    "pill": "FIJADO",
+    "hot": true,
+    "pillColor": "#e4703a"
+   },
+   {
+    "type": "soporte",
+    "name": "Tripié",
+    "price": "$9.99",
+    "line": "25% comisión",
+    "pill": "-30% 10 MIN",
+    "pillColor": "#d0202b"
+   },
+   {
+    "type": "moon",
+    "name": "Lámpara Luna",
+    "price": "$19.99",
+    "line": "20% comisión",
+    "pill": "Gana $4.00"
+   },
+   {
+    "type": "led",
+    "name": "Tira LED",
+    "price": "$12.99",
+    "line": "15% comisión",
+    "pill": "Gana $1.95"
+   },
+   {
+    "type": "termo",
+    "name": "Termo 1L",
+    "price": "$24.99",
+    "line": "12% comisión",
+    "pill": "Gana $3.00"
+   },
+   {
+    "type": "audif",
+    "name": "Audífonos",
+    "price": "$29.99",
+    "line": "10% comisión",
+    "pill": "Gana $3.00"
+   }
+  ]
+ },
+ "beats": [
+  {
+   "who": "leo",
+   "shot": "leoXClose",
+   "text": "¡¿Solo tres personas en mi live?!",
+   "say": "¡¿Solo tres personas en mi láiv?!",
+   "mood": "shock",
+   "voice": {
+    "rate": "+20%",
+    "pitch": "+25Hz",
+    "volume": "+25%"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "Y una es tu mamá."
+  },
+  {
+   "who": "leo",
+   "shot": "leoClose",
+   "text": "¿Y las otras dos?"
+  },
+  {
+   "who": "claude",
+   "shot": "claude",
+   "text": "También es tu mamá. Con otros dos celulares.",
+   "mood": "smug"
+  },
+  {
+   "who": "leo",
+   "shot": "leo",
+   "text": "¡Llevo media hora hablando solo!",
+   "mood": "angry",
+   "voice": {
+    "rate": "+16%",
+    "pitch": "+10Hz",
+    "volume": "+25%"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "No fijaste el producto. Ni diste una oferta."
+  },
+  {
+   "card": "compare",
+   "dur": 3.2,
+   "title": "Tu live, con y sin estrategia",
+   "sub": "Espectadores en 10 minutos",
+   "icon": "aro",
+   "bars": [
+    {
+     "label": "Hablar sin parar",
+     "value": 3,
+     "color": "#9aa0a8"
+    },
+    {
+     "label": "Producto fijado + oferta de 10 min",
+     "value": 2400,
+     "color": "#e4703a"
+    }
+   ],
+   "suffix": " personas",
+   "foot": "Fija el producto y da una razón para comprar YA"
+  },
+  {
+   "who": "leo",
+   "shot": "leoClose",
+   "text": "¿Y qué digo?"
+  },
+  {
+   "who": "claude",
+   "shot": "claude",
+   "text": "Oferta solo por diez minutos. Y cuentas hacia atrás."
+  },
+  {
+   "who": "leo",
+   "shot": "leoFull",
+   "text": "¡Oferta por diez minutos! ¡Diez, nueve, ocho!",
+   "mood": "armsUp",
+   "voice": {
+    "rate": "+16%",
+    "pitch": "+15Hz",
+    "volume": "+20%"
+   }
+  },
+  {
+   "card": "graph",
+   "dur": 3.6,
+   "title": "Espectadores de tu live",
+   "sub": "Minuto a minuto",
+   "icon": "aro",
+   "points": [
+    0.0,
+    0.0,
+    0.01,
+    0.01,
+    0.02,
+    0.1,
+    0.35,
+    0.6,
+    0.8,
+    0.92,
+    0.97,
+    1.0
+   ],
+   "mark": {
+    "at": 0.42,
+    "label": "Aquí diste la oferta"
+   },
+   "xlabels": [
+    "0",
+    "5",
+    "10",
+    "15",
+    "20 min"
+   ],
+   "big": {
+    "to": 2400,
+    "label": "personas en tu live"
+   }
+  },
+  {
+   "who": "leo",
+   "shot": "leoXClose",
+   "text": "¡¿2,400 personas?!",
+   "say": "¡¿Dos mil cuatrocientas personas?!",
+   "mood": "shock",
+   "voice": {
+    "rate": "+20%",
+    "pitch": "+25Hz",
+    "volume": "+25%"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "Y tu mamá compró 30.",
+   "say": "Y tu mamá compró treinta.",
+   "mood": "smug"
+  },
+  {
+   "who": "leo",
+   "shot": "leoClose",
+   "text": "...Esa es mi mamá.",
+   "say": "Esa es mi mamá.",
+   "mood": "calm"
+  },
+  {
+   "card": "billboard",
+   "dur": 3.1,
+   "lines": [
+    "MI PRIMER LIVE",
+    "DE 3 A 2,400"
+   ],
+   "big": "2,400",
+   "bigSub": "PERSONAS EN VIVO",
+   "views": 1.7,
+   "foot": "Y mi mamá compró 30",
+   "stamp": "EN VIVO",
+   "prop": "aro",
+   "color": "#be123c"
+  },
+  {
+   "who": "claude",
+   "shot": "cta",
+   "text": "Sigue la serie. Mañana: por qué me descontaron $900.",
+   "cta": {
+    "name": "DiegoMastery",
+    "sub": "Serie: Mi IA me hizo afiliado",
+    "tag": "CAP. 9 · MAÑANA"
+   },
+   "say": "Sigue la serie. Mañana: por qué me descontaron novecientos dólares."
+  }
+ ]
+}

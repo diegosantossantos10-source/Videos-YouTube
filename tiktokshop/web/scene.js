@@ -9,7 +9,7 @@ const EP = QS.get('ep') || 'episodes/cap01-afiliado';
 const TL = await (await fetch(`/${EP}/build/timeline.json`)).json();
 const SET = Object.assign({ sky: 'night', boxes: 'normal', moon: true, exposure: 1.15 }, TL.set || {});
 const V2 = TL.style === 'v2';
-const HL = new Set((TL.hl || []).map(w => w.toUpperCase()));
+const HL = new Set((TL.hl || []).map(w => w.replace(/[^0-9A-ZÁÉÍÓÚÑÜ$%]/gi, '').toUpperCase()));
 const FPS = TL.fps;
 for (const wt of [500, 600, 700, 800, 900]) await document.fonts.load(`${wt} 60px Inter`);
 for (const wt of [800, 900]) document.fonts.add(await new FontFace('Montserrat', `url(/node_modules/@fontsource/montserrat/files/montserrat-latin-${wt}-normal.woff2)`, { weight: String(wt) }).load());
@@ -366,6 +366,55 @@ if (SET.dog) {
   shadowAll(root); scene.add(root);
 }
 
+// ------------------------------------------------------------------ props opcionales por episodio
+const extra = {};
+if (SET.fish) { // almohada con forma de pescado, en la mano izquierda de Leo
+  const g = new THREE.Group();
+  const blue = mat(0x5b8fd6), blueD = mat(0x3c6bb0), white = mat(0xf4f6fb), black = mat(0x0d0d10, { flatShading: false, roughness: .3 });
+  const body = new THREE.Mesh(new THREE.IcosahedronGeometry(.2, 1), blue); body.scale.set(1.6, .85, .6); g.add(body);
+  const belly = new THREE.Mesh(new THREE.IcosahedronGeometry(.17, 1), white); belly.scale.set(1.35, .55, .5); belly.position.set(.02, -.06, .02); g.add(belly);
+  const tail = new THREE.Mesh(new THREE.ConeGeometry(.13, .2, 4), blueD); tail.rotation.z = Math.PI / 2; tail.position.x = -.4; g.add(tail);
+  for (const s2 of [-1, 1]) {
+    const eye = new THREE.Mesh(new THREE.SphereGeometry(.045, 8, 6), white); eye.position.set(.2, .05, s2 * .1); g.add(eye);
+    const pu = new THREE.Mesh(new THREE.SphereGeometry(.022, 6, 4), black); pu.position.set(.23, .05, s2 * .13); g.add(pu);
+  }
+  const lips = new THREE.Mesh(new THREE.TorusGeometry(.035, .014, 5, 10), mat(0xe06a8a)); lips.rotation.y = Math.PI / 2; lips.position.set(.33, -.03, 0); g.add(lips);
+  g.position.set(.05, -.6, .18); g.rotation.set(0, -1.2, -.25);
+  shadowAll(g); leo.arms[0].add(g); extra.fish = g;
+}
+if (SET.ringLight) { // aro de luz con celular, detrás de Leo
+  const g = new THREE.Group(); g.position.set(-1.75, 0, -.95); g.rotation.y = .35;
+  const pole = new THREE.Mesh(new THREE.CylinderGeometry(.018, .018, 1.55, 6), mat(0x22252d)); pole.position.y = .78; g.add(pole);
+  for (let k = 0; k < 3; k++) { const l = new THREE.Mesh(new THREE.CylinderGeometry(.012, .012, .5, 5), mat(0x22252d)); l.position.set(Math.cos(k * 2.1) * .16, .2, Math.sin(k * 2.1) * .16); l.rotation.set(Math.sin(k * 2.1) * .5, 0, -Math.cos(k * 2.1) * .5); g.add(l); }
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(.36, .045, 8, 32), new THREE.MeshBasicMaterial({ color: 0xfff3dc, toneMapped: false })); ring.position.y = 1.72; g.add(ring);
+  const phone = new THREE.Mesh(RB(.14, .26, .02, .02), mat(0x111318)); phone.position.set(0, 1.72, .02); g.add(phone);
+  const scr = new THREE.Mesh(new THREE.PlaneGeometry(.12, .23), new THREE.MeshBasicMaterial({ color: 0xff3b5c, toneMapped: false })); scr.position.set(0, 1.72, .032); g.add(scr);
+  scene.add(g);
+  const rl = new THREE.PointLight(0xfff0d8, 3.2, 5, 2); rl.position.set(-1.6, 1.8, -.6); scene.add(rl);
+}
+if (SET.confetti) { // confeti cayendo
+  const n = 520, r = mulberry(77), pos = new Float32Array(n * 3), col = [], seeds = [];
+  const pal = [[0, .9, 1], [1, .18, .58], [1, .82, .25], [1, 1, 1], [.4, 1, .55]];
+  for (let i = 0; i < n; i++) { seeds.push([(r() - .5) * 7, r() * 4.5, -2.5 + r() * 4.5, .35 + r() * .5, r() * 6.28]); const c = pal[i % pal.length]; col.push(...c); }
+  const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.BufferAttribute(pos, 3)); geo.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
+  const pts = new THREE.Points(geo, new THREE.PointsMaterial({ size: .055, vertexColors: true, toneMapped: false }));
+  scene.add(pts); extra.confetti = { geo, pos, seeds };
+}
+if (SET.shades) { // lentes de sol de Claude
+  const g = new THREE.Group(); g.position.set(0, .065, .352);
+  const blk = new THREE.MeshStandardMaterial({ color: 0x08080a, roughness: .15, metalness: .4 });
+  for (const s2 of [-1, 1]) { const l = new THREE.Mesh(RB(.2, .12, .025, .03), blk); l.position.x = s2 * .17; g.add(l); const gl = new THREE.Mesh(new THREE.BoxGeometry(.05, .012, .005), new THREE.MeshBasicMaterial({ color: 0xffffff })); gl.position.set(s2 * .17 - .04, .03, .016); gl.rotation.z = .5; g.add(gl); }
+  const br = new THREE.Mesh(new THREE.BoxGeometry(.16, .02, .02), blk); g.add(br);
+  cl.body.add(g); cl.eyes.forEach(e => e.visible = false);
+}
+if (SET.suitcase) { // maleta de vacaciones detrás de Claude
+  const g = new THREE.Group(); g.position.set(1.75, 0, -.7); g.rotation.y = -.5;
+  const box = new THREE.Mesh(RB(.55, .42, .24, .04), mat(0x1fa39a)); box.position.y = .23; g.add(box);
+  const handle = new THREE.Mesh(new THREE.TorusGeometry(.08, .018, 6, 12, Math.PI), mat(0x22252d)); handle.position.y = .45; g.add(handle);
+  for (const [x, y, c] of [[-.14, .3, 0xffd23f], [.12, .16, 0xff2e93], [.16, .32, 0xffffff]]) { const st = new THREE.Mesh(new THREE.CircleGeometry(.055, 12), mat(c, { flatShading: false })); st.position.set(x, y, .125); g.add(st); }
+  shadowAll(g); scene.add(g);
+}
+
 // ------------------------------------------------------------------ dibujos 2D compartidos
 function drawMoonLamp(g, x, y, r, glow = 1) {
   g.save();
@@ -389,16 +438,22 @@ function drawClaudeIcon(g, x, y, w) {
 }
 // cara 2D low-poly (Leo y variantes). opt: hat, hatD, skin, beard, eyes:'open'|'closed', mouth:'o'|'smile'|'flat'
 function drawFace2D(g, cx, cy, r, opt = {}) {
-  const o = Object.assign({ hat: '#c4262c', hatD: '#a61e24', skin: '#c2825a', beard: true, eyes: 'open', mouth: 'o' }, opt);
+  const o = Object.assign({ hat: '#c4262c', hatD: '#a61e24', skin: '#c2825a', beard: true, eyes: 'open', mouth: 'o', hair: null, glasses: false }, opt);
   g.save();
   const pts = []; for (let i = 0; i < 9; i++) { const a = -Math.PI / 2 + i * Math.PI * 2 / 9; pts.push([cx + Math.cos(a) * r, cy + Math.sin(a) * r * 1.04]); }
   g.fillStyle = o.skin; g.beginPath(); pts.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.fill();
   const shades = ['rgba(0,0,0,.08)', 'rgba(255,255,255,.06)', 'rgba(0,0,0,.14)'];
   for (let i = 0; i < 9; i++) { const a = pts[i], b = pts[(i + 1) % 9]; g.fillStyle = shades[i % 3]; g.beginPath(); g.moveTo(cx, cy); g.lineTo(...a); g.lineTo(...b); g.fill(); }
   if (o.beard) { g.fillStyle = 'rgba(80,50,30,.55)'; g.beginPath(); g.moveTo(pts[2][0], pts[2][1]); for (let i = 3; i <= 7; i++) g.lineTo(...pts[i]); g.lineTo(cx - r * .6, cy + r * .15); g.lineTo(cx + r * .6, cy + r * .15); g.closePath(); g.fill(); }
-  g.fillStyle = o.hat; g.beginPath(); g.ellipse(cx, cy - r * .55, r * 1.0, r * .75, 0, Math.PI, 0); g.fill();
-  g.fillStyle = o.hatD; rr(g, cx - r * 1.02, cy - r * .62, r * 2.04, r * .32, r * .08); g.fill();
-  g.fillStyle = o.hat; g.beginPath(); g.arc(cx, cy - r * 1.32, r * .14, 0, Math.PI * 2); g.fill();
+  if (o.hair) { // pelo con chongo (abuela)
+    g.fillStyle = o.hair; g.beginPath(); g.ellipse(cx, cy - r * .42, r * 1.02, r * .7, 0, Math.PI, 0); g.fill();
+    g.beginPath(); g.arc(cx, cy - r * 1.12, r * .3, 0, Math.PI * 2); g.fill();
+    g.fillStyle = 'rgba(0,0,0,.08)'; g.beginPath(); g.ellipse(cx - r * .3, cy - r * .6, r * .5, r * .2, -.3, 0, Math.PI * 2); g.fill();
+  } else {
+    g.fillStyle = o.hat; g.beginPath(); g.ellipse(cx, cy - r * .55, r * 1.0, r * .75, 0, Math.PI, 0); g.fill();
+    g.fillStyle = o.hatD; rr(g, cx - r * 1.02, cy - r * .62, r * 2.04, r * .32, r * .08); g.fill();
+    g.fillStyle = o.hat; g.beginPath(); g.arc(cx, cy - r * 1.32, r * .14, 0, Math.PI * 2); g.fill();
+  }
   g.fillStyle = '#111';
   if (o.eyes === 'closed') { g.lineWidth = r * .07; g.strokeStyle = '#111'; g.lineCap = 'round'; for (const s of [-1, 1]) { g.beginPath(); g.arc(cx + s * .35 * r, cy - r * .02, r * .14, Math.PI * .15, Math.PI * .85); g.stroke(); } }
   else {
@@ -407,6 +462,7 @@ function drawFace2D(g, cx, cy, r, opt = {}) {
   }
   g.fillStyle = '#2a1a12'; g.save(); g.translate(cx - r * .35, cy - r * .32); g.rotate(-.15); g.fillRect(-r * .2, -r * .04, r * .4, r * .08); g.restore();
   g.save(); g.translate(cx + r * .35, cy - r * .32); g.rotate(.15); g.fillRect(-r * .2, -r * .04, r * .4, r * .08); g.restore();
+  if (o.glasses) { g.strokeStyle = '#3a2a20'; g.lineWidth = r * .07; for (const s2 of [-1, 1]) { g.beginPath(); g.arc(cx + s2 * .35 * r, cy - r * .02, r * .27, 0, Math.PI * 2); g.stroke(); } g.beginPath(); g.moveTo(cx - r * .08, cy - r * .04); g.lineTo(cx + r * .08, cy - r * .04); g.stroke(); }
   g.fillStyle = '#150a08';
   if (o.mouth === 'o') { g.beginPath(); g.ellipse(cx, cy + r * .45, r * .2, r * .26, 0, 0, Math.PI * 2); g.fill(); }
   else if (o.mouth === 'smile') { g.beginPath(); g.ellipse(cx, cy + r * .38, r * .32, r * .2, 0, 0, Math.PI); g.fill(); }
@@ -462,6 +518,34 @@ function drawProduct(g, type, x, y, r) {
     g.fillStyle = '#2b3147'; rr(g, x - r * .55, y - r * .7, r * 1.1, r * 1.5, r * .3); g.fill();
     g.fillStyle = '#e8ebf2'; rr(g, x - r * .4, y - r * .5, r * .8, r * .3, r * .1); g.fill();
     g.fillStyle = '#ff8a4c'; g.beginPath(); g.arc(x, y + r * .25, r * .26, 0, Math.PI * 2); g.fill();
+  } else if (type === 'fish') {
+    g.fillStyle = '#5b8fd6'; g.beginPath(); g.ellipse(x + r * .1, y, r * .75, r * .42, 0, 0, Math.PI * 2); g.fill();
+    g.fillStyle = '#f4f6fb'; g.beginPath(); g.ellipse(x + r * .15, y + r * .12, r * .55, r * .2, 0, 0, Math.PI * 2); g.fill();
+    g.fillStyle = '#3c6bb0'; g.beginPath(); g.moveTo(x - r * .6, y); g.lineTo(x - r * 1.0, y - r * .38); g.lineTo(x - r * 1.0, y + r * .38); g.closePath(); g.fill();
+    g.fillStyle = '#fff'; g.beginPath(); g.arc(x + r * .5, y - r * .1, r * .14, 0, Math.PI * 2); g.fill(); g.fillStyle = '#111'; g.beginPath(); g.arc(x + r * .54, y - r * .1, r * .07, 0, Math.PI * 2); g.fill();
+    g.fillStyle = '#e06a8a'; g.beginPath(); g.arc(x + r * .84, y + r * .06, r * .08, 0, Math.PI * 2); g.fill();
+  } else if (type === 'pot') {
+    g.fillStyle = '#b4532a'; g.beginPath(); g.ellipse(x, y + r * .15, r * .78, r * .6, 0, 0, Math.PI * 2); g.fill();
+    g.fillStyle = '#8f3f1f'; g.beginPath(); g.ellipse(x, y - r * .35, r * .7, r * .16, 0, 0, Math.PI * 2); g.fill();
+    g.strokeStyle = '#8f3f1f'; g.lineWidth = r * .12; g.beginPath(); g.arc(x - r * .8, y - r * .05, r * .16, Math.PI * .5, Math.PI * 1.5); g.stroke(); g.beginPath(); g.arc(x + r * .8, y - r * .05, r * .16, -Math.PI * .5, Math.PI * .5); g.stroke();
+    g.strokeStyle = 'rgba(255,255,255,.5)'; g.lineWidth = r * .05; for (let k = 0; k < 3; k++) { g.beginPath(); g.moveTo(x - r * .3 + k * r * .3, y - r * .55); g.bezierCurveTo(x - r * .4 + k * r * .3, y - r * .8, x - r * .2 + k * r * .3, y - r * .9, x - r * .3 + k * r * .3, y - r * 1.1); g.stroke(); }
+  } else if (type === 'taco') {
+    g.fillStyle = '#2b3147'; rr(g, x - r * .42, y - r * .8, r * .84, r * 1.6, r * .14); g.fill();
+    g.fillStyle = '#f2c14e'; g.beginPath(); g.arc(x, y + r * .25, r * .55, Math.PI, 0); g.closePath(); g.fill();
+    g.fillStyle = '#58b84f'; for (let k = 0; k < 4; k++) { g.beginPath(); g.arc(x - r * .36 + k * r * .24, y + r * .02, r * .12, 0, Math.PI * 2); g.fill(); }
+    g.fillStyle = '#d0202b'; g.beginPath(); g.arc(x - r * .1, y - r * .05, r * .09, 0, Math.PI * 2); g.fill(); g.beginPath(); g.arc(x + r * .2, y - r * .02, r * .08, 0, Math.PI * 2); g.fill();
+  } else if (type === 'hat') {
+    g.fillStyle = '#c4262c'; g.beginPath(); g.ellipse(x, y + r * .1, r * .75, r * .7, 0, Math.PI, 0); g.fill();
+    g.fillStyle = '#a61e24'; rr(g, x - r * .8, y + r * .05, r * 1.6, r * .38, r * .1); g.fill();
+    g.fillStyle = '#c4262c'; g.beginPath(); g.arc(x, y - r * .68, r * .16, 0, Math.PI * 2); g.fill();
+  } else if (type === 'contract') {
+    g.fillStyle = '#f4f6fb'; rr(g, x - r * .55, y - r * .8, r * 1.1, r * 1.5, r * .08); g.fill();
+    g.fillStyle = '#9aa0a8'; for (let k = 0; k < 5; k++) g.fillRect(x - r * .4, y - r * .6 + k * r * .2, r * (k === 4 ? .4 : .8), r * .07);
+    g.strokeStyle = '#1d4ed8'; g.lineWidth = r * .06; g.beginPath(); g.moveTo(x - r * .1, y + r * .5); g.bezierCurveTo(x + r * .05, y + r * .2, x + r * .2, y + r * .7, x + r * .4, y + r * .45); g.stroke();
+  } else if (type === 'comment') {
+    g.fillStyle = '#fff'; rr(g, x - r * .7, y - r * .5, r * 1.4, r * .9, r * .3); g.fill();
+    g.beginPath(); g.moveTo(x - r * .3, y + r * .35); g.lineTo(x - r * .5, y + r * .7); g.lineTo(x, y + r * .38); g.fill();
+    g.fillStyle = '#e4703a'; for (let k = 0; k < 3; k++) { g.beginPath(); g.arc(x - r * .32 + k * r * .32, y - r * .05, r * .1, 0, Math.PI * 2); g.fill(); }
   } else if (type === 'dog') {
     drawProduct(g, 'brush', x, y, r);
   }
@@ -631,6 +715,17 @@ function animate(t, beat) {
   C.eyes.forEach(e => e.scale.set(ceX, ceS, 1));
   C.spot.material.opacity = .85 + .15 * Math.sin(t * 3.1);
 
+  // ---- confeti
+  if (extra.confetti) {
+    const { geo, pos, seeds } = extra.confetti;
+    seeds.forEach(([x0, y0, z0, sp, ph], i) => {
+      pos[i * 3] = x0 + Math.sin(t * 1.3 + ph) * .25;
+      pos[i * 3 + 1] = 4.5 - ((4.5 - y0 + t * sp) % 4.5);
+      pos[i * 3 + 2] = z0 + Math.cos(t * 1.1 + ph) * .2;
+    });
+    geo.attributes.position.needsUpdate = true;
+  }
+  if (extra.fish) extra.fish.rotation.x = .08 * Math.sin(t * 2);
   // ---- perro
   if (dog.root) {
     dog.tail.rotation.x = Math.sin(t * 16) * .7;
@@ -886,6 +981,34 @@ function chatCard(lt, ev, d) {
     });
   });
 }
+// ---- tarjeta: comentarios de la comunidad
+function commentsCard(lt, ev, d) {
+  const n = d.items.length, rowH = 150, top = 170, x = 80, w = 920;
+  const fk = d.foot ? easeOut((lt - ev.foot) / .3) : 0;
+  const shown = ev.items.filter(a => lt >= a).length;
+  const h = top + Math.max(1, shown) * rowH + 30 + fk * 110, y = (H - (top + n * rowH + 150)) / 2 - 40;
+  cardFrame(lt, x, y, w, h, () => {
+    const P = 60; cardHeader(P, d, d.icon || 'comment');
+    d.items.forEach((it, i) => {
+      const k = backOut((lt - ev.items[i]) / .3); if (lt < ev.items[i]) return;
+      const ry = top + i * rowH;
+      ctx.save(); ctx.globalAlpha *= clamp((lt - ev.items[i]) / .15);
+      ctx.translate(w / 2, ry + rowH / 2); ctx.scale(lerp(.85, 1, k), lerp(.85, 1, k)); ctx.translate(-w / 2, -(ry + rowH / 2));
+      ctx.fillStyle = '#ffffff'; rr(ctx, 36, ry, w - 72, rowH - 18, 24); ctx.fill();
+      const cols = ['#00b8d4', '#FF2E93', '#f59e0b', '#8b5cf6', '#16a34a'];
+      ctx.fillStyle = cols[i % cols.length]; ctx.beginPath(); ctx.arc(36 + 58, ry + (rowH - 18) / 2, 36, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#fff'; ctx.font = '800 32px Inter'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText((it.user || '?').replace('@', '').slice(0, 1).toUpperCase(), 36 + 58, ry + (rowH - 18) / 2 + 1); ctx.textAlign = 'left';
+      ctx.fillStyle = '#6b7078'; ctx.font = '700 26px Inter'; ctx.fillText(it.user, 36 + 116, ry + 38);
+      let fs = 36; ctx.font = `700 ${fs}px Inter`; while (ctx.measureText(it.text).width > w - 330 && fs > 26) { fs -= 2; ctx.font = `700 ${fs}px Inter`; }
+      ctx.fillStyle = '#16181d'; ctx.fillText(it.text, 36 + 116, ry + 86);
+      ctx.fillStyle = '#FF2E93'; ctx.font = '800 30px Inter'; ctx.textAlign = 'right'; ctx.fillText('♥ ' + (it.likes || ''), w - 64, ry + 62); ctx.textAlign = 'left';
+      ctx.textBaseline = 'alphabetic';
+      ctx.restore();
+    });
+    if (d.foot) pill(P, top + n * rowH + 20, d.foot, '#16a34a', (lt - ev.foot) / .3, '700 32px Inter', 30, 64);
+  });
+}
 // ---- CTA de seguimiento (marca DiegoMastery)
 const CY = 1180;
 function ctaCard(lt, b) {
@@ -1026,7 +1149,7 @@ function vignette() {
   g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, `rgba(0,0,0,${V2 ? .32 : .55})`);
   ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
 }
-const CARDS = { stats: statsCard, message: messageCard, order: messageCard, notifs: notifsCard, compare: compareCard, graph: graphCard, chat: chatCard };
+const CARDS = { stats: statsCard, message: messageCard, order: messageCard, notifs: notifsCard, compare: compareCard, graph: graphCard, chat: chatCard, comments: commentsCard };
 
 // ------------------------------------------------------------------ frame
 const LAST = TL.beats[TL.beats.length - 1];

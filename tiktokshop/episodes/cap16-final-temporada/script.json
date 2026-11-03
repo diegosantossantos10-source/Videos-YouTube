@@ -1,0 +1,253 @@
+{
+ "style": "v2",
+ "voices": {
+  "leo": {
+   "voice": "es-MX-JorgeNeural",
+   "rate": "+16%",
+   "pitch": "+0Hz"
+  },
+  "claude": {
+   "voice": "es-US-AlonsoNeural",
+   "rate": "+12%",
+   "pitch": "+0Hz"
+  }
+ },
+ "pace": {
+  "first": 0.04,
+  "pre": 0.06,
+  "shockPre": 0.03,
+  "post": 0.14,
+  "shockPost": 0.26,
+  "cardGap": 0.06,
+  "tempo": 0.72
+ },
+ "title": "Cap. 16 — Final de temporada",
+ "hook": {
+  "lines": [
+   "TEMPORADA 1",
+   "$45,500 SIN PRODUCTOS"
+  ],
+  "untilBeat": 3
+ },
+ "hl": [
+  "TEMPORADA",
+  "MAESTRO",
+  "PANTUFLAS",
+  "SOCIO.",
+  "OFICINA.",
+  "COMISIÓN"
+ ],
+ "set": {
+  "sky": "purple",
+  "confetti": true,
+  "dog": true,
+  "slippers": true,
+  "boxes": "many",
+  "moon": true,
+  "seed": 16,
+  "exposure": 1.4
+ },
+ "music": {
+  "bpm": 98,
+  "prog": 1,
+  "seed": 67
+ },
+ "screen": {
+  "title": "Temporada 1",
+  "badge": "FINAL",
+  "live": "● 16 CAPÍTULOS",
+  "tiles": [
+   {
+    "type": "moon",
+    "name": "Cap. 1 · Afiliado",
+    "price": "$8,000",
+    "line": "Sin productos",
+    "pill": "✓"
+   },
+   {
+    "type": "brush",
+    "name": "Cap. 3 · Comisión",
+    "price": "$3,600",
+    "line": "40% comisión",
+    "pill": "✓"
+   },
+   {
+    "type": "noise",
+    "name": "Cap. 4 · Dormido",
+    "price": "$8,300",
+    "line": "En una noche",
+    "pill": "✓"
+   },
+   {
+    "type": "slipper",
+    "name": "Cap. 6 · Pantuflas",
+    "price": "$9,000",
+    "line": "Las odió",
+    "pill": "✓"
+   },
+   {
+    "type": "taco",
+    "name": "Cap. 13 · Taco",
+    "price": "$3,450",
+    "line": "0 competencia",
+    "pill": "✓"
+   },
+   {
+    "type": "contract",
+    "name": "Cap. 15 · Contrato",
+    "price": "$8,000",
+    "line": "Al mes",
+    "pill": "✓",
+    "hot": true
+   }
+  ]
+ },
+ "beats": [
+  {
+   "who": "leo",
+   "shot": "leoXClose",
+   "text": "¡¿$45,500 en una temporada?!",
+   "say": "¡¿Cuarenta y cinco mil quinientos dólares en una temporada?!",
+   "mood": "shock",
+   "voice": {
+    "rate": "+20%",
+    "pitch": "+25Hz",
+    "volume": "+25%"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "Sumando los dieciséis capítulos.",
+   "mood": "happy"
+  },
+  {
+   "card": "graph",
+   "dur": 3.6,
+   "title": "Tu temporada 1",
+   "sub": "Comisiones acumuladas",
+   "icon": "bag",
+   "points": [
+    0.0,
+    0.18,
+    0.26,
+    0.44,
+    0.47,
+    0.67,
+    0.7,
+    0.68,
+    0.73,
+    0.78,
+    0.85,
+    1.0
+   ],
+   "mark": {
+    "at": 0.27,
+    "label": "Aquí rentamos un perro"
+   },
+   "xlabels": [
+    "Cap 1",
+    "Cap 4",
+    "Cap 8",
+    "Cap 12",
+    "Cap 16"
+   ],
+   "big": {
+    "to": 45500,
+    "prefix": "$",
+    "label": "en comisiones, sin productos propios"
+   }
+  },
+  {
+   "who": "leo",
+   "shot": "leoClose",
+   "text": "¿Y Comisión sigue aquí?"
+  },
+  {
+   "who": "claude",
+   "shot": "dog",
+   "text": "Es socio. Tiene oficina.",
+   "mood": "smug"
+  },
+  {
+   "who": "leo",
+   "shot": "leoClose",
+   "text": "¿Y ahora qué hacemos con todo esto?",
+   "mood": "calm"
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "Enseñarle a otros a hacer lo mismo."
+  },
+  {
+   "who": "leo",
+   "shot": "leo",
+   "text": "¿Tú vas a dar clases?"
+  },
+  {
+   "who": "claude",
+   "shot": "claude",
+   "text": "Yo no. Tú. Ya te inscribí como maestro.",
+   "mood": "happy"
+  },
+  {
+   "who": "leo",
+   "shot": "leoXClose",
+   "text": "¡¿Maestro de qué?!",
+   "mood": "shock",
+   "voice": {
+    "rate": "+20%",
+    "pitch": "+25Hz",
+    "volume": "+25%"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "De cómo vender pantuflas que odias.",
+   "mood": "smug"
+  },
+  {
+   "who": "leo",
+   "shot": "leoFull",
+   "text": "¡Esa clase sí la doy!",
+   "mood": "armsUp",
+   "voice": {
+    "rate": "+16%",
+    "pitch": "+15Hz",
+    "volume": "+20%"
+   }
+  },
+  {
+   "card": "billboard",
+   "dur": 3.1,
+   "lines": [
+    "TEMPORADA 1",
+    "TERMINADA"
+   ],
+   "big": "$45,500",
+   "bigSub": "SIN PRODUCTOS PROPIOS",
+   "views": 5.1,
+   "foot": "16 capítulos, 1 perro, 0 productos",
+   "stamp": "FINAL",
+   "prop": "box",
+   "faces": [
+    {
+     "mouth": "smile"
+    }
+   ],
+   "color": "#7c3aed"
+  },
+  {
+   "who": "claude",
+   "shot": "cta",
+   "text": "Comenta 'TEMPORADA 2' y sigue la serie para no perdértela.",
+   "cta": {
+    "name": "DiegoMastery",
+    "sub": "Serie: Mi IA me hizo afiliado",
+    "tag": "TEMPORADA 2 · PRONTO"
+   }
+  }
+ ]
+}

@@ -28,7 +28,7 @@ VOICES = {**DEFAULT_VOICES, **script.get("voices", {})}
 async def synth(text, voice, rate, pitch, volume, out_mp3):
     """Sintetiza y guarda también los tiempos de cada palabra (<mp3>.words.json)."""
     import edge_tts
-    for attempt in range(4):
+    for attempt in range(10):  # el servicio a veces devuelve "NoAudioReceived" en frases normales: reintentar
         try:
             c = edge_tts.Communicate(text, voice, rate=rate, pitch=pitch, volume=volume, boundary="WordBoundary")
             audio, words = bytearray(), []
@@ -41,9 +41,9 @@ async def synth(text, voice, rate, pitch, volume, out_mp3):
             json.dump(words, open(out_mp3 + ".words.json", "w", encoding="utf-8"), ensure_ascii=False)
             return
         except Exception:
-            if attempt == 3:
+            if attempt == 9:
                 raise
-            await asyncio.sleep(2 ** attempt)
+            await asyncio.sleep(1.5 + attempt * 1.5)
 
 
 def load_wav_mono(path):
@@ -98,8 +98,8 @@ async def make_voices(fresh):
         if fresh or not os.path.exists(mp3) or not os.path.exists(mp3 + ".words.json"):
             jobs.append(synth(text, v["voice"], v.get("rate", "+0%"), v.get("pitch", "+0Hz"),
                               v.get("volume", "+0%"), mp3))
-    for k in range(0, len(jobs), 6):
-        await asyncio.gather(*jobs[k:k + 6])
+    for k in range(0, len(jobs), 3):
+        await asyncio.gather(*jobs[k:k + 3])
 
 
 asyncio.run(make_voices("--fresh" in sys.argv))
@@ -183,6 +183,9 @@ def _card_events(c):
         return {"msgs": out}
     if kind == "billboard":
         return {"views": [0.5, 1.6], "stamp": 2.0}
+    if kind == "comments":
+        items = [round(0.4 + i * 0.6, 2) for i in range(len(c["items"]))]
+        return {"items": items, "foot": round(items[-1] + 0.55, 2)}
     raise ValueError(kind)
 
 
@@ -226,7 +229,8 @@ timeline = {"fps": FPS, "w": 1080, "h": 1920, "duration": TOTAL, "beats": beats_
 if script.get("hook"):
     hk = dict(script["hook"])
     ub = hk.pop("untilBeat", 2)
-    hk["until"] = beats_out[min(ub, len(beats_out) - 1)]["start"]
+    first_card = next((x["start"] for x in beats_out if x["type"] == "card"), TOTAL)
+    hk["until"] = min(beats_out[min(ub, len(beats_out) - 1)]["start"], first_card)  # nunca encima de una tarjeta
     timeline["hook"] = hk
 json.dump(timeline, open(os.path.join(BUILD, "timeline.json"), "w", encoding="utf-8"), ensure_ascii=False)
 print(f"{os.path.basename(EP)}: {TOTAL:.2f}s  ({int(round(TOTAL * FPS))} frames)")
@@ -373,6 +377,12 @@ for b in beats_out:
     elif kind == "chat":
         for k, (m, at) in enumerate(zip(b["data"]["msgs"], ev["msgs"])):
             put(whoosh(0.18, True) * 0.6 if m.get("me") else ping(1174.7, 1568, 0.15), s + at - (0.05 if m.get("me") else 0), 1.0)
+    elif kind == "comments":
+        for k, at in enumerate(ev["items"]):
+            put(pop(0.1), s + at, 0.8)
+            put(ping(1046.5 + 90 * k, 1568 + 90 * k, 0.1), s + at + 0.03, 1.0)
+        if b["data"].get("foot"):
+            put(cha_ching(), s + ev["foot"], 0.8)
     elif kind == "billboard":
         put(pop(), s + ev["stamp"], 0.9)
         put(cha_ching(), s + ev["stamp"] + 0.1, 0.9)

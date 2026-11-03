@@ -32,7 +32,9 @@ fs.mkdirSync(OUT, { recursive: true });
     await page.waitForFunction('window.READY === true', null, { timeout: 120000 });
     for (const f of list) {
       const url = await page.evaluate(n => window.frame(n), f);
-      fs.writeFileSync(path.join(OUT, `${String(f).padStart(6, '0')}.jpg`), Buffer.from(url.split(',')[1], 'base64'));
+      const dst = path.join(OUT, `${String(f).padStart(6, '0')}.jpg`);
+      fs.writeFileSync(dst + '.tmp', Buffer.from(url.split(',')[1], 'base64'));
+      fs.renameSync(dst + '.tmp', dst); // escritura atómica: un reinicio no deja frames a medias
       done++;
       if (done % 100 === 0) { const el = (Date.now() - t0) / 1000; console.log(`${done}/${frames.length}  ${(el / done).toFixed(2)}s/frame  ETA ${((frames.length - done) * el / done / 60).toFixed(1)} min`); }
     }

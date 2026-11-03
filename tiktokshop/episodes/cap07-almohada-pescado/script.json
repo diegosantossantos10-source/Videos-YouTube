@@ -1,0 +1,264 @@
+{
+ "style": "v2",
+ "voices": {
+  "leo": {
+   "voice": "es-MX-JorgeNeural",
+   "rate": "+16%",
+   "pitch": "+0Hz"
+  },
+  "claude": {
+   "voice": "es-US-AlonsoNeural",
+   "rate": "+12%",
+   "pitch": "+0Hz"
+  }
+ },
+ "pace": {
+  "first": 0.04,
+  "pre": 0.06,
+  "shockPre": 0.03,
+  "post": 0.14,
+  "shockPost": 0.26,
+  "cardGap": 0.06,
+  "tempo": 0.72
+ },
+ "title": "Cap. 7 — La reseña más fea",
+ "hook": {
+  "lines": [
+   "USTEDES ELIGIERON",
+   "EL PRODUCTO MÁS FEO"
+  ],
+  "untilBeat": 3
+ },
+ "hl": [
+  "PESCADO",
+  "HONESTO",
+  "HORRIBLE",
+  "ABRAZÁNDOLA",
+  "SUAVECITA",
+  "MIRANDO"
+ ],
+ "set": {
+  "sky": "night",
+  "fish": true,
+  "moon": true,
+  "seed": 7,
+  "exposure": 1.4
+ },
+ "music": {
+  "bpm": 90,
+  "prog": 0,
+  "seed": 29
+ },
+ "screen": {
+  "title": "Mi vitrina",
+  "badge": "RESEÑAS",
+  "live": "● 3,000 VOTOS",
+  "tiles": [
+   {
+    "type": "fish",
+    "name": "Almohada Pescado",
+    "price": "$14.99",
+    "line": "25% comisión",
+    "pill": "Gana $3.75",
+    "hot": true
+   },
+   {
+    "type": "slipper",
+    "name": "Pantuflas Dino",
+    "price": "$9.99",
+    "line": "30% comisión",
+    "pill": "AGOTADO",
+    "pillColor": "#d0202b"
+   },
+   {
+    "type": "moon",
+    "name": "Lámpara Luna",
+    "price": "$19.99",
+    "line": "20% comisión",
+    "pill": "Gana $4.00"
+   },
+   {
+    "type": "led",
+    "name": "Tira LED",
+    "price": "$12.99",
+    "line": "15% comisión",
+    "pill": "Gana $1.95"
+   },
+   {
+    "type": "termo",
+    "name": "Termo 1L",
+    "price": "$24.99",
+    "line": "12% comisión",
+    "pill": "Gana $3.00"
+   },
+   {
+    "type": "audif",
+    "name": "Audífonos",
+    "price": "$29.99",
+    "line": "10% comisión",
+    "pill": "Gana $3.00"
+   }
+  ]
+ },
+ "beats": [
+  {
+   "who": "leo",
+   "shot": "leoXClose",
+   "text": "¡¿Una almohada de pescado?!",
+   "mood": "shock",
+   "voice": {
+    "rate": "+20%",
+    "pitch": "+25Hz",
+    "volume": "+25%"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "La eligieron 3,000 comentarios.",
+   "say": "La eligieron tres mil comentarios."
+  },
+  {
+   "card": "comments",
+   "dur": 3.4,
+   "title": "Comentarios más votados",
+   "sub": "Cap. 6 · ¿Qué reseña Leo?",
+   "items": [
+    {
+     "user": "@mari.compras",
+     "text": "La almohada de pescado, sin duda",
+     "likes": "2.1K"
+    },
+    {
+     "user": "@eltio.rober",
+     "text": "Que la abrace en vivo",
+     "likes": "980"
+    },
+    {
+     "user": "@ana_ofertas",
+     "text": "Si la odia, la compro",
+     "likes": "760"
+    }
+   ],
+   "foot": "Ganó: almohada de pescado"
+  },
+  {
+   "who": "leo",
+   "shot": "leoClose",
+   "text": "¡Tiene ojos! ¡Me está mirando!",
+   "mood": "angry",
+   "voice": {
+    "rate": "+16%",
+    "pitch": "+10Hz",
+    "volume": "+25%"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claude",
+   "text": "Sé honesto. Así vendiste las pantuflas."
+  },
+  {
+   "who": "leo",
+   "shot": "leo",
+   "text": "Ok. Es horrible. Y huele a pescado.",
+   "mood": "serious"
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "Perfecto. Ya vendiste 400.",
+   "say": "Perfecto. Ya vendiste cuatrocientas.",
+   "mood": "happy"
+  },
+  {
+   "who": "leo",
+   "shot": "leoXClose",
+   "text": "¡¿400 en una hora?!",
+   "say": "¡¿Cuatrocientas en una hora?!",
+   "mood": "shock",
+   "voice": {
+    "rate": "+20%",
+    "pitch": "+25Hz",
+    "volume": "+25%"
+   }
+  },
+  {
+   "card": "stats",
+   "dur": 3.9,
+   "title": "Tu reseña en 60 seg",
+   "sub": "1 video · 1 hora · 3,000 votos",
+   "icon": "fish",
+   "count": {
+    "to": 400,
+    "label": "almohadas vendidas"
+   },
+   "row": {
+    "icon": "fish",
+    "text": "Almohada Pescado · $14.99",
+    "right": "25% comisión"
+   },
+   "pill": "Reseña honesta ✓",
+   "money": {
+    "label": "Comisiones de la hora",
+    "to": 1500,
+    "prefix": "$",
+    "suffix": " USD",
+    "foot": "Y siguen llegando pedidos"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claude",
+   "text": "Y hay otra cosa."
+  },
+  {
+   "who": "leo",
+   "shot": "leoClose",
+   "text": "¿Qué cosa?"
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "Te dormiste abrazándola. En el video.",
+   "mood": "smug"
+  },
+  {
+   "who": "leo",
+   "shot": "leoFull",
+   "text": "¡Es suavecita, ok!",
+   "mood": "armsUp",
+   "voice": {
+    "rate": "+16%",
+    "pitch": "+15Hz",
+    "volume": "+20%"
+   }
+  },
+  {
+   "card": "billboard",
+   "dur": 3.1,
+   "lines": [
+    "LA RESEÑA",
+    "MÁS FEA"
+   ],
+   "big": "400",
+   "bigSub": "VENDIDAS EN 1 HORA",
+   "views": 2.2,
+   "foot": "Ustedes la eligieron. Ustedes la compraron.",
+   "stamp": "HONESTO",
+   "prop": "fish",
+   "color": "#1d4ed8"
+  },
+  {
+   "who": "claude",
+   "shot": "cta",
+   "text": "Sigue la serie. Mañana: Leo hace su primer live. Solo.",
+   "cta": {
+    "name": "DiegoMastery",
+    "sub": "Serie: Mi IA me hizo afiliado",
+    "tag": "CAP. 8 · MAÑANA"
+   },
+   "say": "Sigue la serie. Mañana: Leo hace su primer láiv. Solo."
+  }
+ ]
+}
