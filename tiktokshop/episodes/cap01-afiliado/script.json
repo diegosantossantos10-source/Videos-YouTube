@@ -1,220 +1,48 @@
 {
- "title": "Claude me hizo afiliado de TikTok Shop",
- "beats": [
-  {
-   "who": "leo",
-   "shot": "wide",
-   "text": "Claude... ¿por qué TikTok Shop me va a pagar $8,000 en comisiones?",
-   "say": "Claude... ¿por qué TikTok Shop me va a pagar ocho mil dólares en comisiones?"
+ "title": "Cap. 1 — Mi IA me hizo afiliado (v2, retención)",
+ "style": "v2",
+ "voices": {
+  "leo": {
+   "voice": "es-MX-JorgeNeural",
+   "rate": "+16%",
+   "pitch": "+0Hz"
   },
-  {
-   "who": "claude",
-   "shot": "claude",
-   "text": "Te hice afiliado."
-  },
-  {
-   "who": "leo",
-   "shot": "leoClose",
-   "text": "¿Afiliado? Si yo no tengo productos."
-  },
-  {
-   "who": "claude",
-   "shot": "claude",
-   "text": "No hace falta. Tú recomiendas, las marcas envían."
-  },
-  {
-   "card": "stats",
-   "dur": 5.4,
-   "title": "Tus comisiones en 60 segundos",
-   "sub": "3 videos · 1 live · 4 días · 0 productos propios",
-   "count": {
-    "to": 2000,
-    "label": "ventas con tu link"
-   },
-   "row": {
-    "icon": "moon",
-    "text": "Top: Lámpara Luna · $19.99",
-    "right": "20% comisión"
-   },
-   "pill": "Afiliado verificado ✓",
-   "money": {
-    "label": "Comisiones del mes",
-    "to": 8000,
-    "prefix": "$",
-    "suffix": " USD",
-    "foot": "Pago: viernes"
-   }
-  },
-  {
-   "who": "leo",
-   "shot": "leoClose",
-   "text": "¿Y cuándo me pagan?"
-  },
-  {
-   "who": "claude",
-   "shot": "claude",
-   "text": "El viernes. Ya está ligada tu cuenta."
-  },
-  {
-   "who": "leo",
-   "shot": "leo",
-   "text": "¿Cuántos videos subiste?"
-  },
-  {
-   "who": "claude",
-   "shot": "claudeClose",
-   "text": "Tres."
-  },
-  {
-   "who": "leo",
-   "shot": "leoXClose",
-   "mood": "shock",
-   "text": "¡¿Tres?!",
-   "voice": {
-    "rate": "+12%",
-    "pitch": "+25Hz",
-    "volume": "+20%"
-   }
-  },
-  {
-   "who": "claude",
-   "shot": "claude",
-   "text": "Y un live a las 3 de la mañana.",
-   "say": "Y un láiv a las tres de la mañana."
-  },
-  {
-   "who": "leo",
-   "shot": "leo",
-   "text": "Ahora sí. Pido muestras gratis."
-  },
-  {
-   "who": "claude",
-   "shot": "claudeClose",
-   "text": "Ya las pediste."
-  },
-  {
-   "who": "leo",
-   "shot": "leoXClose",
-   "mood": "shock",
-   "text": "¡¿Qué?!",
-   "voice": {
-    "rate": "+12%",
-    "pitch": "+25Hz",
-    "volume": "+20%"
-   }
-  },
-  {
-   "who": "claude",
-   "shot": "claude",
-   "text": "Anoche dijiste \"mándenme todo\". Le escribí a 40 marcas.",
-   "say": "Anoche dijiste \"mándenme todo\". Le escribí a cuarenta marcas."
-  },
-  {
-   "card": "message",
-   "dur": 5.6,
-   "to": "40 marcas",
-   "subject": "Muestras gratis",
-   "body": "“Mándenme todo.”",
-   "sent": "Enviado a las 3:12 a.m.",
-   "pill": "Enviado ✓",
-   "reply": {
-    "from": "Marcas · ahora",
-    "text": "Llegan el lunes."
-   }
-  },
-  {
-   "who": "leo",
-   "shot": "leoFull",
-   "mood": "armsUp",
-   "text": "¡Lo dije dormido!",
-   "voice": {
-    "rate": "+8%",
-    "pitch": "+15Hz",
-    "volume": "+15%"
-   }
-  },
-  {
-   "who": "claude",
-   "shot": "claudeClose",
-   "text": "Las marcas contestaron \"llegan el lunes\"."
-  },
-  {
-   "who": "leo",
-   "shot": "leoClose",
-   "text": "¿Y dónde voy a meter 40 cajas?",
-   "say": "¿Y dónde voy a meter cuarenta cajas?"
-  },
-  {
-   "who": "claude",
-   "shot": "claude",
-   "text": "Ya rentaste una bodega."
-  },
-  {
-   "who": "leo",
-   "shot": "leoClose",
-   "mood": "serious",
-   "text": "...Esto sí es de verdad.",
-   "say": "Esto sí es de verdad."
-  },
-  {
-   "who": "leo",
-   "shot": "leo",
-   "mood": "calm",
-   "text": "Debí confiar en ti desde el principio."
-  },
-  {
-   "who": "claude",
-   "shot": "claude",
-   "mood": "happy",
-   "text": "Tienes toda la razón."
-  },
-  {
-   "who": "leo",
-   "shot": "wide",
-   "text": "...¿Y cuál video vendió más?",
-   "say": "¿Y cuál video vendió más?"
-  },
-  {
-   "who": "claude",
-   "shot": "claudeClose",
-   "mood": "smug",
-   "text": "Uno con tu cara."
-  },
-  {
-   "who": "leo",
-   "shot": "leoXClose",
-   "mood": "shock",
-   "text": "¡¿Yo no salía en los videos?!",
-   "voice": {
-    "rate": "+10%",
-    "pitch": "+20Hz",
-    "volume": "+20%"
-   }
-  },
-  {
-   "who": "claude",
-   "shot": "claude",
-   "text": "Es tu cara cuando viste la comisión."
-  },
-  {
-   "card": "billboard",
-   "dur": 5.2,
-   "lines": [
-    "MI IA ME HIZO",
-    "AFILIADO"
-   ],
-   "big": "$8,000",
-   "bigSub": "EN COMISIONES",
-   "views": 2.4,
-   "foot": "812 ventas con tu link en este video",
-   "stamp": "TOP AFILIADO",
-   "prop": "moon"
+  "claude": {
+   "voice": "es-US-AlonsoNeural",
+   "rate": "+12%",
+   "pitch": "+0Hz"
   }
+ },
+ "pace": {
+  "first": 0.04,
+  "pre": 0.06,
+  "shockPre": 0.03,
+  "post": 0.14,
+  "shockPost": 0.26,
+  "cardGap": 0.06,
+  "tempo": 0.72
+ },
+ "hook": {
+  "lines": [
+   "MI IA ME HIZO GANAR",
+   "$8,000 SIN PRODUCTOS"
+  ],
+  "untilBeat": 3
+ },
+ "hl": [
+  "AFILIADO",
+  "COMISIONES",
+  "GRATIS",
+  "DORMIDO",
+  "CARA",
+  "COMISIÓN",
+  "MARCAS"
  ],
  "set": {
   "sky": "night",
   "boxes": "normal",
-  "moon": true
+  "moon": true,
+  "exposure": 1.4
  },
  "screen": {
   "title": "Mi vitrina",
@@ -269,5 +97,184 @@
   "bpm": 84,
   "prog": 0,
   "seed": 7
- }
+ },
+ "beats": [
+  {
+   "who": "leo",
+   "shot": "leoXClose",
+   "text": "¡¿$8,000 de TikTok Shop?!",
+   "say": "¡¿Ocho mil dólares de TikTok Shop?!",
+   "mood": "shock",
+   "voice": {
+    "rate": "+20%",
+    "pitch": "+25Hz",
+    "volume": "+25%"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "En comisiones. Te hice afiliado."
+  },
+  {
+   "who": "leo",
+   "shot": "leoClose",
+   "text": "¡Si yo no tengo productos!",
+   "mood": "angry",
+   "voice": {
+    "rate": "+20%",
+    "pitch": "+25Hz",
+    "volume": "+25%"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claude",
+   "text": "No hace falta. Tú recomiendas, las marcas envían."
+  },
+  {
+   "card": "stats",
+   "dur": 3.9,
+   "title": "Tus comisiones en 60 segundos",
+   "sub": "3 videos · 1 live · 4 días · 0 productos propios",
+   "count": {
+    "to": 2000,
+    "label": "ventas con tu link"
+   },
+   "row": {
+    "icon": "moon",
+    "text": "Top: Lámpara Luna · $19.99",
+    "right": "20% comisión"
+   },
+   "pill": "Afiliado verificado ✓",
+   "money": {
+    "label": "Comisiones del mes",
+    "to": 8000,
+    "prefix": "$",
+    "suffix": " USD",
+    "foot": "Pago: viernes"
+   }
+  },
+  {
+   "who": "leo",
+   "shot": "leo",
+   "text": "¿Cuántos videos subiste?"
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "Tres."
+  },
+  {
+   "who": "leo",
+   "shot": "leoXClose",
+   "text": "¡¿Tres?!",
+   "mood": "shock",
+   "voice": {
+    "rate": "+20%",
+    "pitch": "+25Hz",
+    "volume": "+25%"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claude",
+   "text": "Y un live a las 3 de la mañana.",
+   "say": "Y un láiv a las tres de la mañana."
+  },
+  {
+   "who": "leo",
+   "shot": "leoClose",
+   "text": "Ahora sí. Pido muestras gratis."
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "Ya las pediste. Anoche, dormido.",
+   "mood": "smug"
+  },
+  {
+   "card": "message",
+   "dur": 3.6,
+   "to": "40 marcas",
+   "subject": "Muestras gratis",
+   "body": "“Mándenme todo.”",
+   "sent": "Enviado a las 3:12 a.m.",
+   "pill": "Enviado ✓",
+   "reply": {
+    "from": "Marcas · ahora",
+    "text": "Llegan el lunes."
+   }
+  },
+  {
+   "who": "leo",
+   "shot": "leoFull",
+   "text": "¡¿40 marcas?! ¡Lo dije dormido!",
+   "say": "¡¿Cuarenta marcas?! ¡Lo dije dormido!",
+   "mood": "armsUp",
+   "voice": {
+    "rate": "+20%",
+    "pitch": "+25Hz",
+    "volume": "+25%"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claude",
+   "text": "Tranquilo. Ya rentaste una bodega.",
+   "mood": "happy"
+  },
+  {
+   "who": "leo",
+   "shot": "wide",
+   "text": "¿Y cuál video vendió más?"
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "Uno con tu cara.",
+   "mood": "smug"
+  },
+  {
+   "who": "leo",
+   "shot": "leoXClose",
+   "text": "¡¿Yo no salía en los videos?!",
+   "mood": "shock",
+   "voice": {
+    "rate": "+20%",
+    "pitch": "+25Hz",
+    "volume": "+25%"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claude",
+   "text": "Es tu cara cuando viste la comisión."
+  },
+  {
+   "card": "billboard",
+   "dur": 3.1,
+   "lines": [
+    "MI IA ME HIZO",
+    "AFILIADO"
+   ],
+   "big": "$8,000",
+   "bigSub": "EN COMISIONES",
+   "views": 2.4,
+   "foot": "812 ventas con tu link en este video",
+   "stamp": "TOP AFILIADO",
+   "prop": "moon"
+  },
+  {
+   "who": "claude",
+   "shot": "cta",
+   "text": "Sigue la serie. Mañana: 60 cajas gratis en la azotea.",
+   "say": "Sigue la serie. Mañana: sesenta cajas gratis en la azotea.",
+   "cta": {
+    "name": "DiegoMastery",
+    "sub": "Serie: Mi IA me hizo afiliado",
+    "tag": "CAP. 2 · MAÑANA"
+   }
+  }
+ ]
 }

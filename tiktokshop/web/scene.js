@@ -7,11 +7,12 @@ const W = 1080, H = 1920;
 const QS = new URLSearchParams(location.search);
 const EP = QS.get('ep') || 'episodes/cap01-afiliado';
 const TL = await (await fetch(`/${EP}/build/timeline.json`)).json();
-const SET = Object.assign({ sky: 'night', boxes: 'normal', moon: true }, TL.set || {});
+const SET = Object.assign({ sky: 'night', boxes: 'normal', moon: true, exposure: 1.15 }, TL.set || {});
+const V2 = TL.style === 'v2';
+const HL = new Set((TL.hl || []).map(w => w.toUpperCase()));
 const FPS = TL.fps;
 for (const wt of [500, 600, 700, 800, 900]) await document.fonts.load(`${wt} 60px Inter`);
-const mont = new FontFace('Montserrat', 'url(/node_modules/@fontsource/montserrat/files/montserrat-latin-800-normal.woff2)', { weight: '800' });
-document.fonts.add(await mont.load());
+for (const wt of [800, 900]) document.fonts.add(await new FontFace('Montserrat', `url(/node_modules/@fontsource/montserrat/files/montserrat-latin-${wt}-normal.woff2)`, { weight: String(wt) }).load());
 
 // ------------------------------------------------------------------ utilidades
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
@@ -38,7 +39,7 @@ const glc = document.getElementById('gl');
 const renderer = new THREE.WebGLRenderer({ canvas: glc, antialias: QS.get('aa') !== '0', preserveDrawingBuffer: true });
 renderer.setPixelRatio(1); renderer.setSize(W, H, false);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
-renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.15;
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = SET.exposure;
 renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(45, W / H, 0.05, 400);
@@ -952,9 +953,77 @@ function ctaCard(lt, b) {
     ctx.restore();
   }
 }
+// ---- v2: subtítulos grandes palabra a palabra (tiempos reales de la voz)
+const CAP_FONT = '900 78px Montserrat';
+const isKey = w => /[0-9$%]/.test(w) || HL.has(w.replace(/[^0-9A-ZÁÉÍÓÚÑÜ$%]/gi, '').toUpperCase());
+function chunkWords(words) {
+  ctx.save(); ctx.font = CAP_FONT;
+  const chunks = []; let cur = [], wsum = 0;
+  const sp = ctx.measureText(' ').width * 1.5 + 12;
+  for (const w of words) {
+    const up = w.w.toUpperCase(), wd = ctx.measureText(up).width;
+    const prevEnds = cur.length && /[.?!,…]$/.test(cur[cur.length - 1].w);
+    if (cur.length && (cur.length >= 3 || wsum + sp + wd > 900 || prevEnds)) { chunks.push(cur); cur = []; wsum = 0; }
+    cur.push({ ...w, up, wd }); wsum += (cur.length > 1 ? sp : 0) + wd;
+  }
+  if (cur.length) chunks.push(cur);
+  ctx.restore();
+  return chunks.map(c => ({ words: c, t0: c[0].t0 }));
+}
+function captions(b, t, y) {
+  if (!b.words || !b.words.length) return;
+  if (!b._chunks) b._chunks = chunkWords(b.words);
+  const rel = t - b.a0;
+  let ci = 0; b._chunks.forEach((c, i) => { if (rel >= c.t0 - .04) ci = i; });
+  const ch = b._chunks[ci];
+  ctx.save(); ctx.font = CAP_FONT; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round';
+  const sp = ctx.measureText(' ').width * 1.5 + 12;
+  const total = ch.words.reduce((a, w, i) => a + w.wd + (i ? sp : 0), 0);
+  const fit = Math.min(1, 960 / total);
+  const k = backOut((rel - ch.t0 + .04) / .14), s0 = lerp(.82, 1, k) * fit;
+  ctx.translate(W / 2, y); ctx.scale(s0, s0);
+  let x = -total / 2;
+  ch.words.forEach((w, i) => {
+    const active = rel >= w.t0 - .02 && rel < w.t1 + .02;
+    const cx = x + w.wd / 2;
+    ctx.save(); ctx.translate(cx, 0);
+    if (active) { const p = backOut((rel - w.t0 + .02) / .12); ctx.scale(lerp(1, 1.07, p), lerp(1, 1.07, p)); ctx.rotate(-.015); }
+    ctx.textAlign = 'center';
+    ctx.shadowColor = 'rgba(0,0,0,.55)'; ctx.shadowBlur = 18; ctx.shadowOffsetY = 6;
+    ctx.lineWidth = 16; ctx.strokeStyle = '#0b0b0f'; ctx.strokeText(w.up, 0, 0);
+    ctx.shadowColor = 'transparent';
+    ctx.fillStyle = isKey(w.w) ? '#FF2E93' : active ? '#00E5FF' : '#ffffff';
+    ctx.fillText(w.up, 0, 0);
+    ctx.restore();
+    x += w.wd + sp;
+  });
+  ctx.restore();
+}
+function hookBanner(t) {
+  const hk = TL.hook; if (!hk || t > hk.until + .3) return;
+  const a = t < hk.until ? 1 : 1 - (t - hk.until) / .3;
+  const s = lerp(.9, 1, backOut(t / .22));
+  ctx.save(); ctx.globalAlpha = a; ctx.translate(W / 2, 330); ctx.scale(s, s);
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round';
+  let fs = 80; ctx.font = `900 ${fs}px Montserrat`;
+  while (ctx.measureText(hk.lines[0]).width > 960 && fs > 50) { fs -= 2; ctx.font = `900 ${fs}px Montserrat`; }
+  ctx.shadowColor = 'rgba(0,0,0,.6)'; ctx.shadowBlur = 20; ctx.lineWidth = 16; ctx.strokeStyle = '#0b0b0f'; ctx.strokeText(hk.lines[0], 0, -62);
+  ctx.shadowColor = 'transparent'; ctx.fillStyle = '#fff'; ctx.fillText(hk.lines[0], 0, -62);
+  if (hk.lines[1]) {
+    let f2 = 72; ctx.font = `900 ${f2}px Montserrat`;
+    while (ctx.measureText(hk.lines[1]).width > 900 && f2 > 44) { f2 -= 2; ctx.font = `900 ${f2}px Montserrat`; }
+    const tw = ctx.measureText(hk.lines[1]).width + 70, th = f2 * 1.45;
+    const gr = ctx.createLinearGradient(-tw / 2, 0, tw / 2, 0); gr.addColorStop(0, '#00E5FF'); gr.addColorStop(1, '#FF2E93');
+    ctx.save(); ctx.rotate(-.025);
+    ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = 24; ctx.fillStyle = gr; rr(ctx, -tw / 2, 58 - th / 2, tw, th, 22); ctx.fill();
+    ctx.shadowColor = 'transparent'; ctx.fillStyle = '#1E1E22'; ctx.fillText(hk.lines[1], 0, 62);
+    ctx.restore();
+  }
+  ctx.restore();
+}
 function vignette() {
   const g = ctx.createRadialGradient(W / 2, H * .48, H * .25, W / 2, H * .5, H * .75);
-  g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,.55)');
+  g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, `rgba(0,0,0,${V2 ? .32 : .55})`);
   ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
 }
 const CARDS = { stats: statsCard, message: messageCard, order: messageCard, notifs: notifsCard, compare: compareCard, graph: graphCard, chat: chatCard };
@@ -973,9 +1042,13 @@ window.frame = (n, quality = .92) => {
   renderer.render(scene, camera);
   ctx.drawImage(glc, 0, 0);
   vignette();
-  if (b.type === 'line') { subtitle(b.text, lt); if (b.cta) ctaCard(lt, b); }
+  if (b.type === 'line') {
+    if (V2 && b.words) captions(b, t, b.cta ? 330 : 1290); else subtitle(b.text, lt);
+    if (b.cta) ctaCard(lt, b);
+  }
   else if (CARDS[b.card]) { ctx.fillStyle = 'rgba(5,8,16,.25)'; ctx.fillRect(0, 0, W, H); CARDS[b.card](lt, b.ev, b.data); }
-  let fade = clamp(1 - t / .35);
+  if (V2) hookBanner(t);
+  let fade = V2 ? 0 : clamp(1 - t / .35);
   if (b === LAST) fade = Math.max(fade, clamp((t - (TL.duration - .8)) / .65));
   if (fade > 0) { ctx.fillStyle = `rgba(0,0,0,${fade})`; ctx.fillRect(0, 0, W, H); }
   return quality ? out.toDataURL('image/jpeg', quality) : null;

@@ -26,11 +26,19 @@ VOICES = {**DEFAULT_VOICES, **script.get("voices", {})}
 
 # ---------------------------------------------------------------- voces
 async def synth(text, voice, rate, pitch, volume, out_mp3):
+    """Sintetiza y guarda también los tiempos de cada palabra (<mp3>.words.json)."""
     import edge_tts
     for attempt in range(4):
         try:
-            c = edge_tts.Communicate(text, voice, rate=rate, pitch=pitch, volume=volume)
-            await c.save(out_mp3)
+            c = edge_tts.Communicate(text, voice, rate=rate, pitch=pitch, volume=volume, boundary="WordBoundary")
+            audio, words = bytearray(), []
+            async for ch in c.stream():
+                if ch["type"] == "audio":
+                    audio += ch["data"]
+                elif ch["type"] == "WordBoundary":
+                    words.append({"t": ch["offset"] / 1e7, "d": ch["duration"] / 1e7, "w": ch["text"]})
+            open(out_mp3, "wb").write(audio)
+            json.dump(words, open(out_mp3 + ".words.json", "w", encoding="utf-8"), ensure_ascii=False)
             return
         except Exception:
             if attempt == 3:
@@ -46,9 +54,10 @@ def load_wav_mono(path):
 
 
 def trim(sig, thr=0.012, pad=0.03, max_gap=0.2):
+    """Recorta silencios. Devuelve (señal, f) donde f(t_original) -> t en la señal recortada."""
     idx = np.where(np.abs(sig) > thr)[0]
     if len(idx) == 0:
-        return sig
+        return sig, (lambda x: x)
     a = max(0, idx[0] - int(pad * SR))
     b = min(len(sig), idx[-1] + int(pad * SR * 2))
     sig = sig[a:b]
@@ -67,7 +76,12 @@ def trim(sig, thr=0.012, pad=0.03, max_gap=0.2):
             k = j
         else:
             k += 1
-    return sig[keep]
+    cum = np.cumsum(keep)
+
+    def remap(t_orig):
+        i = int(t_orig * SR) - a
+        return float(cum[min(max(i, 0), len(cum) - 1)]) / SR
+    return sig[keep], remap
 
 
 async def make_voices(fresh):
@@ -81,7 +95,7 @@ async def make_voices(fresh):
         key = hashlib.md5(json.dumps([text, v], sort_keys=True).encode()).hexdigest()[:10]
         mp3 = os.path.join(VOICE_DIR, f"{i:02d}_{key}.mp3")
         b["_mp3"] = mp3
-        if fresh or not os.path.exists(mp3):
+        if fresh or not os.path.exists(mp3) or not os.path.exists(mp3 + ".words.json"):
             jobs.append(synth(text, v["voice"], v.get("rate", "+0%"), v.get("pitch", "+0Hz"),
                               v.get("volume", "+0%"), mp3))
     for k in range(0, len(jobs), 6):
@@ -89,6 +103,32 @@ async def make_voices(fresh):
 
 
 asyncio.run(make_voices("--fresh" in sys.argv))
+
+
+import re
+
+
+def word_times(display, spoken, remap, dur):
+    """Reparte las palabras del subtítulo sobre los tiempos reales de la voz (aunque el texto hablado difiera)."""
+    toks = display.split()
+    clean = lambda w: max(1, len(re.sub(r"[^0-9A-Za-zÁÉÍÓÚáéíóúÑñÜü$%]", "", w)))
+    if spoken:
+        tot = sum(clean(w["w"]) for w in spoken)
+        xs, ys, acc = [0.0], [remap(spoken[0]["t"])], 0
+        for w in spoken:
+            xs.append(acc / tot); ys.append(remap(w["t"]))
+            acc += clean(w["w"])
+            xs.append(acc / tot); ys.append(remap(w["t"] + w["d"]))
+        xs, ys = np.array(xs), np.maximum.accumulate(np.array(ys))
+        f = lambda q: float(np.interp(q, xs, ys))
+    else:
+        f = lambda q: q * dur
+    tot = sum(clean(w) for w in toks)
+    out, acc = [], 0
+    for w in toks:
+        q0 = acc / tot; acc += clean(w); q1 = acc / tot
+        out.append({"w": w, "t0": round(min(f(q0), dur), 3), "t1": round(min(max(f(q1), f(q0) + 0.08), dur), 3)})
+    return out
 
 
 def envelope(sig):
@@ -102,7 +142,20 @@ def envelope(sig):
 
 
 # ---------------------------------------------------------------- tiempos internos de cada tarjeta
+PACE = {"first": 0.35, "pre": 0.22, "shockPre": 0.12, "post": 0.32, "shockPost": 0.5, "cardGap": 0.15, "tempo": 1.0}
+PACE.update(script.get("pace", {}))
+STYLE = script.get("style", "v1")
+
+
 def card_events(c):
+    ev = _card_events(c)
+    k = PACE["tempo"]
+    sc = lambda v: [round(x * k, 2) for x in v] if isinstance(v, list) and not isinstance(v[0], list) else \
+        [[round(x * k, 2) for x in p] for p in v] if isinstance(v, list) else round(v * k, 2)
+    return {key: sc(v) for key, v in ev.items()}
+
+
+def _card_events(c):
     kind = c["card"]
     if kind == "stats":
         return {"count": [0.35, 2.0], "badge": 2.15, "money": [2.75, 3.6], "deposit": 3.95}
@@ -145,21 +198,22 @@ for i, b in enumerate(script["beats"]):
         card_i += 1
         t += b["dur"]
         continue
-    sig = trim(load_wav_mono(b["_mp3"]))
+    sig, remap = trim(load_wav_mono(b["_mp3"]))
     dur = len(sig) / SR
+    spoken = json.load(open(b["_mp3"] + ".words.json", encoding="utf-8"))
     mood = b.get("mood", "")
-    pre = 0.35 if i == 0 else (0.12 if mood == "shock" else 0.22)
-    post = 0.5 if mood == "shock" else 0.32
+    pre = PACE["first"] if i == 0 else (PACE["shockPre"] if mood == "shock" else PACE["pre"])
+    post = PACE["shockPost"] if mood == "shock" else PACE["post"]
     if i + 1 < len(script["beats"]) and "card" in script["beats"][i + 1]:
-        post += 0.15
+        post += PACE["cardGap"]
     cta = b.get("cta")
     if cta:
-        pre, post = 0.3, 2.0
+        pre, post = (0.3, 2.0) if STYLE == "v1" else (0.12, 1.7)
     a0 = t + pre
     voices.append((a0, sig))
     beat = {"type": "line", "who": b["who"], "shot": b["shot"], "mood": mood, "text": b["text"],
             "start": round(t, 3), "end": round(a0 + dur + post, 3), "a0": round(a0, 3), "a1": round(a0 + dur, 3),
-            "env": envelope(sig)}
+            "env": envelope(sig), "words": word_times(b["text"], spoken, remap, dur)}
     if cta:
         beat["cta"] = cta
         beat["ev"] = {"show": 0.35, "tap": round(pre + dur * 0.55 + 0.3, 2)}
@@ -167,8 +221,13 @@ for i, b in enumerate(script["beats"]):
     t = a0 + dur + post
 
 TOTAL = round(t + 0.4, 3)
-timeline = {"fps": FPS, "w": 1080, "h": 1920, "duration": TOTAL, "beats": beats_out,
-            "set": script.get("set", {}), "screen": script.get("screen", {})}
+timeline = {"fps": FPS, "w": 1080, "h": 1920, "duration": TOTAL, "beats": beats_out, "style": STYLE,
+            "set": script.get("set", {}), "screen": script.get("screen", {}), "hl": script.get("hl", [])}
+if script.get("hook"):
+    hk = dict(script["hook"])
+    ub = hk.pop("untilBeat", 2)
+    hk["until"] = beats_out[min(ub, len(beats_out) - 1)]["start"]
+    timeline["hook"] = hk
 json.dump(timeline, open(os.path.join(BUILD, "timeline.json"), "w", encoding="utf-8"), ensure_ascii=False)
 print(f"{os.path.basename(EP)}: {TOTAL:.2f}s  ({int(round(TOTAL * FPS))} frames)")
 
@@ -264,6 +323,9 @@ def put(sig, at, gain=1.0):
         sfx[i:j] += gain * sig[:j - i]
 
 
+if STYLE != "v1":  # golpe de entrada en el frame 0
+    put(hit(), 0.0, 0.8)
+    put(cha_ching(), 0.05, 0.55)
 for b in beats_out:
     s = b["start"]
     if b["type"] == "line":
@@ -363,7 +425,8 @@ def music(total):
                 add(y - lp(y, 0.3), tb + h * beat)
     fade = int(1.2 * SR)
     out[-fade:] *= np.linspace(1, 0, fade)
-    out[:int(0.3 * SR)] *= np.linspace(0, 1, int(0.3 * SR))
+    if STYLE == "v1":
+        out[:int(0.3 * SR)] *= np.linspace(0, 1, int(0.3 * SR))
     return out
 
 

@@ -1,16 +1,47 @@
 {
- "title": "Cap. 4 — Me grabó dormido",
+ "style": "v2",
+ "voices": {
+  "leo": {
+   "voice": "es-MX-JorgeNeural",
+   "rate": "+16%",
+   "pitch": "+0Hz"
+  },
+  "claude": {
+   "voice": "es-US-AlonsoNeural",
+   "rate": "+12%",
+   "pitch": "+0Hz"
+  }
+ },
+ "pace": {
+  "first": 0.04,
+  "pre": 0.06,
+  "shockPre": 0.03,
+  "post": 0.14,
+  "shockPost": 0.26,
+  "cardGap": 0.06,
+  "tempo": 0.72
+ },
+ "title": "Cap. 4 — Me grabó dormido (v2, retención)",
+ "hook": {
+  "lines": [
+   "ME GRABÓ DORMIDO",
+   "Y GANÉ $6,300"
+  ],
+  "untilBeat": 3
+ },
+ "hl": [
+  "DORMIDO",
+  "PRIVADO",
+  "ALARMA",
+  "MEJOR"
+ ],
  "set": {
   "sky": "purple",
   "sleepMask": true,
   "noise": true,
   "moon": false,
-  "seed": 4
- },
- "music": {
-  "bpm": 76,
-  "prog": 3,
-  "seed": 17
+  "seed": 4,
+  "exposure": 1.4
  },
  "screen": {
   "title": "Mi vitrina",
@@ -62,36 +93,21 @@
    }
   ]
  },
+ "music": {
+  "bpm": 76,
+  "prog": 3,
+  "seed": 17
+ },
  "beats": [
-  {
-   "who": "leo",
-   "shot": "wide",
-   "text": "Claude... ¿por qué mi mamá dice que soy famoso?"
-  },
-  {
-   "who": "claude",
-   "shot": "claude",
-   "text": "Por el video de anoche."
-  },
-  {
-   "who": "leo",
-   "shot": "leoClose",
-   "text": "Anoche me dormí temprano."
-  },
-  {
-   "who": "claude",
-   "shot": "claudeClose",
-   "text": "Exacto. Con la máquina de ruido blanco."
-  },
   {
    "who": "leo",
    "shot": "leoXClose",
    "text": "¡¿Me grabaste dormido?!",
    "mood": "shock",
    "voice": {
-    "rate": "+12%",
+    "rate": "+20%",
     "pitch": "+25Hz",
-    "volume": "+20%"
+    "volume": "+25%"
    }
   },
   {
@@ -101,8 +117,24 @@
    "say": "Ocho horas. Roncaste en cuatro K."
   },
   {
+   "who": "leo",
+   "shot": "leoClose",
+   "text": "¡Eso es privado!",
+   "mood": "angry",
+   "voice": {
+    "rate": "+16%",
+    "pitch": "+10Hz",
+    "volume": "+25%"
+   }
+  },
+  {
+   "who": "claude",
+   "shot": "claudeClose",
+   "text": "Ya no. Lo vieron tres millones."
+  },
+  {
    "card": "stats",
-   "dur": 5.4,
+   "dur": 3.9,
    "title": "Tu video dormido en 60 seg",
    "sub": "1 video · 8 horas · 0 cortes",
    "icon": "noise",
@@ -124,22 +156,6 @@
     "suffix": " USD",
     "foot": "1,400 máquinas vendidas"
    }
-  },
-  {
-   "who": "leo",
-   "shot": "leo",
-   "text": "¡Eso es privado!",
-   "mood": "angry",
-   "voice": {
-    "rate": "+8%",
-    "pitch": "+10Hz",
-    "volume": "+20%"
-   }
-  },
-  {
-   "who": "claude",
-   "shot": "claudeClose",
-   "text": "Ya no. Lo vieron tres millones."
   },
   {
    "who": "leo",
@@ -166,7 +182,7 @@
   },
   {
    "card": "message",
-   "dur": 5.4,
+   "dur": 3.6,
    "to": "Marca Nube",
    "subject": "Propuesta",
    "body": "“Live de 8 horas durmiendo.”",
@@ -184,9 +200,9 @@
    "say": "¡¿Un láiv dormido?!",
    "mood": "shock",
    "voice": {
-    "rate": "+12%",
+    "rate": "+20%",
     "pitch": "+25Hz",
-    "volume": "+20%"
+    "volume": "+25%"
    }
   },
   {
@@ -197,7 +213,7 @@
   },
   {
    "card": "billboard",
-   "dur": 4.4,
+   "dur": 3.1,
    "lines": [
     "ME GRABÓ",
     "DORMIDO"

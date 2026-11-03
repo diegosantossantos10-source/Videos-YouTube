@@ -1,14 +1,46 @@
 {
- "title": "Cap. 5 — Mi primo me copió",
+ "style": "v2",
+ "voices": {
+  "leo": {
+   "voice": "es-MX-JorgeNeural",
+   "rate": "+16%",
+   "pitch": "+0Hz"
+  },
+  "claude": {
+   "voice": "es-US-AlonsoNeural",
+   "rate": "+12%",
+   "pitch": "+0Hz"
+  }
+ },
+ "pace": {
+  "first": 0.04,
+  "pre": 0.06,
+  "shockPre": 0.03,
+  "post": 0.14,
+  "shockPost": 0.26,
+  "cardGap": 0.06,
+  "tempo": 0.72
+ },
+ "title": "Cap. 5 — Mi primo me copió (v2, retención)",
+ "hook": {
+  "lines": [
+   "MI PRIMO ME COPIÓ TODO",
+   "Y AHORA ME PAGA"
+  ],
+  "untilBeat": 3
+ },
+ "hl": [
+  "GORRO",
+  "POMPÓN",
+  "SOCIO",
+  "GENIO",
+  "BRAYAN"
+ ],
  "set": {
   "sky": "dusk",
   "moon": true,
-  "seed": 5
- },
- "music": {
-  "bpm": 90,
-  "prog": 4,
-  "seed": 19
+  "seed": 5,
+  "exposure": 1.4
  },
  "screen": {
   "title": "Mi vitrina",
@@ -65,21 +97,22 @@
    }
   ]
  },
+ "music": {
+  "bpm": 90,
+  "prog": 4,
+  "seed": 19
+ },
  "beats": [
   {
    "who": "leo",
-   "shot": "wide",
-   "text": "Claude... ¿por qué mi primo Brayan vende lo mismo que yo?"
-  },
-  {
-   "who": "claude",
-   "shot": "claude",
-   "text": "Te copió los videos."
-  },
-  {
-   "who": "leo",
-   "shot": "leoClose",
-   "text": "¿Cuántos?"
+   "shot": "leoXClose",
+   "text": "¡¿Brayan me copió los videos?!",
+   "mood": "shock",
+   "voice": {
+    "rate": "+20%",
+    "pitch": "+25Hz",
+    "volume": "+25%"
+   }
   },
   {
    "who": "claude",
@@ -88,13 +121,13 @@
   },
   {
    "who": "leo",
-   "shot": "leoXClose",
+   "shot": "leoClose",
    "text": "¡¿Hasta mi gorro?!",
    "mood": "shock",
    "voice": {
-    "rate": "+12%",
+    "rate": "+20%",
     "pitch": "+25Hz",
-    "volume": "+20%"
+    "volume": "+25%"
    }
   },
   {
@@ -109,9 +142,9 @@
    "text": "Voy a reportarlo.",
    "mood": "angry",
    "voice": {
-    "rate": "+8%",
+    "rate": "+16%",
     "pitch": "+10Hz",
-    "volume": "+20%"
+    "volume": "+25%"
    }
   },
   {
@@ -125,14 +158,14 @@
    "text": "¡¿Mi socio?!",
    "mood": "shock",
    "voice": {
-    "rate": "+12%",
+    "rate": "+20%",
     "pitch": "+25Hz",
-    "volume": "+20%"
+    "volume": "+25%"
    }
   },
   {
    "card": "chat",
-   "dur": 5.9,
+   "dur": 4.3,
    "title": "Primo Brayan",
    "sub": "en línea",
    "initials": "B",
@@ -159,12 +192,12 @@
   {
    "who": "claude",
    "shot": "claude",
-   "text": "Ahora él graba y tú cobras 10% de todo.",
-   "say": "Ahora él graba, y tú cobras diez por ciento de todo."
+   "text": "Él graba y tú cobras 10% de todo.",
+   "say": "Él graba, y tú cobras diez por ciento de todo."
   },
   {
    "card": "graph",
-   "dur": 5.0,
+   "dur": 3.6,
    "title": "Ventas de Brayan",
    "sub": "Esta semana",
    "icon": "bag",
@@ -219,14 +252,14 @@
    "text": "¡Por fin alguien lo nota!",
    "mood": "armsUp",
    "voice": {
-    "rate": "+8%",
+    "rate": "+16%",
     "pitch": "+15Hz",
-    "volume": "+15%"
+    "volume": "+20%"
    }
   },
   {
    "card": "billboard",
-   "dur": 4.4,
+   "dur": 3.1,
    "lines": [
     "MI PRIMO",
     "ME COPIÓ"

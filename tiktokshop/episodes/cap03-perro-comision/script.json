@@ -1,15 +1,46 @@
 {
- "title": "Cap. 3 — Mi IA rentó un perro",
+ "style": "v2",
+ "voices": {
+  "leo": {
+   "voice": "es-MX-JorgeNeural",
+   "rate": "+16%",
+   "pitch": "+0Hz"
+  },
+  "claude": {
+   "voice": "es-US-AlonsoNeural",
+   "rate": "+12%",
+   "pitch": "+0Hz"
+  }
+ },
+ "pace": {
+  "first": 0.04,
+  "pre": 0.06,
+  "shockPre": 0.03,
+  "post": 0.14,
+  "shockPost": 0.26,
+  "cardGap": 0.06,
+  "tempo": 0.72
+ },
+ "title": "Cap. 3 — Mi IA rentó un perro (v2, retención)",
+ "hook": {
+  "lines": [
+   "MI IA RENTÓ UN PERRO",
+   "Y GANÓ $3,600"
+  ],
+  "untilBeat": 3
+ },
+ "hl": [
+  "PERRO",
+  "COMISIÓN",
+  "CEPILLOS",
+  "VACACIONES"
+ ],
  "set": {
   "sky": "teal",
   "dog": true,
   "moon": true,
-  "seed": 3
- },
- "music": {
-  "bpm": 92,
-  "prog": 2,
-  "seed": 13
+  "seed": 3,
+  "exposure": 1.4
  },
  "screen": {
   "title": "Mi vitrina",
@@ -65,38 +96,39 @@
    }
   ]
  },
+ "music": {
+  "bpm": 92,
+  "prog": 2,
+  "seed": 13
+ },
  "beats": [
   {
    "who": "leo",
-   "shot": "wide",
-   "text": "Claude... ¿por qué hay un perro en la azotea?"
-  },
-  {
-   "who": "claude",
-   "shot": "claude",
-   "text": "Se llama Comisión. Es tu nuevo compañero."
-  },
-  {
-   "who": "leo",
-   "shot": "leoClose",
+   "shot": "leoXClose",
    "text": "¡¿Rentaste un perro?!",
    "mood": "shock",
    "voice": {
-    "rate": "+12%",
+    "rate": "+20%",
     "pitch": "+25Hz",
-    "volume": "+20%"
+    "volume": "+25%"
    }
   },
   {
    "who": "claude",
-   "shot": "claudeClose",
-   "text": "Por tres días. Ahora vendemos cepillos para perro."
+   "shot": "dog",
+   "text": "Se llama Comisión. Vende más que tú.",
+   "mood": "smug"
+  },
+  {
+   "who": "leo",
+   "shot": "leoClose",
+   "text": "¿Y qué vende un perro?"
   },
   {
    "who": "claude",
-   "shot": "dog",
-   "text": "Y míralo. Posa mejor que tú.",
-   "mood": "smug"
+   "shot": "claudeClose",
+   "text": "Cepillos para perro. Al 40% de comisión.",
+   "say": "Cepillos para perro. Al cuarenta por ciento de comisión."
   },
   {
    "who": "leo",
@@ -105,13 +137,13 @@
   },
   {
    "who": "claude",
-   "shot": "claudeClose",
-   "text": "Pagaban 5%. Este paga 40%.",
-   "say": "Pagaban cinco por ciento. Este paga cuarenta."
+   "shot": "claude",
+   "text": "Pagaban 5%.",
+   "say": "Pagaban cinco por ciento."
   },
   {
    "card": "compare",
-   "dur": 4.4,
+   "dur": 3.2,
    "title": "Las mismas 900 ventas",
    "sub": "Lo que ganas según la comisión",
    "icon": "brush",
@@ -137,15 +169,15 @@
    "say": "¡¿Tres mil seiscientos dólares?!",
    "mood": "shock",
    "voice": {
-    "rate": "+12%",
+    "rate": "+20%",
     "pitch": "+25Hz",
-    "volume": "+20%"
+    "volume": "+25%"
    }
   },
   {
    "who": "claude",
    "shot": "claude",
-   "text": "Y Comisión solo salió en un video."
+   "text": "Con un solo video."
   },
   {
    "who": "leo",
@@ -172,7 +204,7 @@
   },
   {
    "card": "chat",
-   "dur": 5.9,
+   "dur": 4.3,
    "title": "Dueña de Comisión",
    "sub": "en línea",
    "initials": "DC",
@@ -202,9 +234,9 @@
    "text": "¡¿Contrataste al perro?!",
    "mood": "armsUp",
    "voice": {
-    "rate": "+8%",
+    "rate": "+16%",
     "pitch": "+15Hz",
-    "volume": "+15%"
+    "volume": "+20%"
    }
   },
   {
@@ -215,7 +247,7 @@
   },
   {
    "card": "billboard",
-   "dur": 4.4,
+   "dur": 3.1,
    "lines": [
     "MI IA RENTÓ",
     "UN PERRO"

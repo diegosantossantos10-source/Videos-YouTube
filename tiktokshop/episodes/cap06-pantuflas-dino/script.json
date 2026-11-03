@@ -1,15 +1,47 @@
 {
- "title": "Cap. 6 — Las odié y se agotaron",
+ "style": "v2",
+ "voices": {
+  "leo": {
+   "voice": "es-MX-JorgeNeural",
+   "rate": "+16%",
+   "pitch": "+0Hz"
+  },
+  "claude": {
+   "voice": "es-US-AlonsoNeural",
+   "rate": "+12%",
+   "pitch": "+0Hz"
+  }
+ },
+ "pace": {
+  "first": 0.04,
+  "pre": 0.06,
+  "shockPre": 0.03,
+  "post": 0.14,
+  "shockPost": 0.26,
+  "cardGap": 0.06,
+  "tempo": 0.72
+ },
+ "title": "Cap. 6 — Las odié y se agotaron (v2, retención)",
+ "hook": {
+  "lines": [
+   "LAS ODIÉ EN UN VIDEO",
+   "Y VENDÍ 3,000"
+  ],
+  "untilBeat": 3
+ },
+ "hl": [
+  "HORRIBLES",
+  "FEAS",
+  "PUESTAS",
+  "CÓMODAS",
+  "COMISIÓN"
+ ],
  "set": {
   "sky": "night",
   "slippers": true,
   "moon": true,
-  "seed": 6
- },
- "music": {
-  "bpm": 96,
-  "prog": 5,
-  "seed": 23
+  "seed": 6,
+  "exposure": 1.4
  },
  "screen": {
   "title": "Mi vitrina",
@@ -62,12 +94,23 @@
    }
   ]
  },
+ "music": {
+  "bpm": 96,
+  "prog": 5,
+  "seed": 23
+ },
  "beats": [
   {
    "who": "leo",
-   "shot": "wide",
-   "text": "Claude... ¿por qué vendimos 3,000 pantuflas de dinosaurio?",
-   "say": "Claude... ¿por qué vendimos tres mil pantuflas de dinosaurio?"
+   "shot": "leoXClose",
+   "text": "¡¿3,000 pantuflas vendidas?!",
+   "say": "¡¿Tres mil pantuflas vendidas?!",
+   "mood": "shock",
+   "voice": {
+    "rate": "+20%",
+    "pitch": "+25Hz",
+    "volume": "+25%"
+   }
   },
   {
    "who": "claude",
@@ -80,19 +123,19 @@
    "text": "¡Son horribles!",
    "mood": "angry",
    "voice": {
-    "rate": "+8%",
+    "rate": "+16%",
     "pitch": "+10Hz",
-    "volume": "+20%"
+    "volume": "+25%"
    }
   },
   {
    "who": "claude",
    "shot": "claudeClose",
-   "text": "Eso dijiste en el video. Cuatro millones de vistas."
+   "text": "Eso dijiste. Cuatro millones de vistas."
   },
   {
    "card": "graph",
-   "dur": 5.0,
+   "dur": 3.6,
    "title": "Ventas de las pantuflas",
    "sub": "Antes y después de tu reseña",
    "icon": "slipper",
@@ -132,9 +175,9 @@
    "text": "¡¿La gente compró porque las odié?!",
    "mood": "shock",
    "voice": {
-    "rate": "+12%",
+    "rate": "+20%",
     "pitch": "+25Hz",
-    "volume": "+20%"
+    "volume": "+25%"
    }
   },
   {
@@ -143,20 +186,15 @@
    "text": "Querían ver si de verdad eran tan feas."
   },
   {
-   "who": "leo",
-   "shot": "leo",
-   "text": "¿Y la marca no se enojó?"
-  },
-  {
    "who": "claude",
    "shot": "claudeClose",
-   "text": "Te subió la comisión a 30%.",
-   "say": "Te subió la comisión al treinta por ciento.",
+   "text": "Y la marca te subió la comisión a 30%.",
+   "say": "Y la marca te subió la comisión al treinta por ciento.",
    "mood": "happy"
   },
   {
    "card": "notifs",
-   "dur": 5.0,
+   "dur": 3.6,
    "title": "Nuevas ventas",
    "sub": "Pantuflas Dino · 30% comisión",
    "icon": "slipper",
@@ -220,7 +258,7 @@
   },
   {
    "card": "billboard",
-   "dur": 4.4,
+   "dur": 3.1,
    "lines": [
     "LAS ODIÉ",
     "Y SE AGOTARON"
